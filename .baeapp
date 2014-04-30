@@ -1,0 +1,13 @@
+alias: []
+appid: appid8rzt1fkmbc
+appname: teeshirt
+cdatetime: '1398871795'
+createtype: web
+domain: teeshirt.duapp.com
+inum: '1'
+lang_type: python
+name: teeshirt
+release_revision: 40f6ed2804fdcef8f6b5e5f77f744e51401d7af8
+repos_url: https://git.duapp.com/appid8rzt1fkmbc
+status: '6'
+version_type: git
