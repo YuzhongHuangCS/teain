@@ -7,7 +7,7 @@ domain: teeshirt.duapp.com
 inum: '1'
 lang_type: python
 name: teeshirt
-release_revision: 40f6ed2804fdcef8f6b5e5f77f744e51401d7af8
+release_revision: 1c03ed67e150d48cd4cc1449c8f8936f39641e8b
 repos_url: https://git.duapp.com/appid8rzt1fkmbc
-status: '6'
+status: '4'
 version_type: git
