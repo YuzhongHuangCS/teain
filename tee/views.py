@@ -1,6 +1,6 @@
 # Create your views here.
-from django.shortcuts import reder_to_response
+from django.shortcuts import render
 
-def index(req):
+def index(request):
     hello = 'helloaaaa'
-    return render_to_response('index.html', {'var':hello})
+    return render(request, 'index.html', {'var': hello})
