@@ -1,0 +1,102 @@
+app_id: '2649024'
+packages:
+- display: MYSQL-128M-2G
+  id: '17'
+  price: '0.8'
+  resource: '{u''mem'': 128, u''disk'': 2048}'
+  type: mysql
+- display: MYSQL-256M-2G
+  id: '18'
+  price: '1.4'
+  resource: '{u''mem'': 256, u''disk'': 2048}'
+  type: mysql
+- display: MYSQL-512M-2G
+  id: '19'
+  price: '2.6'
+  resource: '{u''mem'': 512, u''disk'': 2048}'
+  type: mysql
+- display: MYSQL-512M-4G
+  id: '20'
+  price: '2.8'
+  resource: '{u''mem'': 512, u''disk'': 4096}'
+  type: mysql
+- display: MYSQL-512M-10G
+  id: '21'
+  price: '3.4'
+  resource: '{u''mem'': 512, u''disk'': 10240}'
+  type: mysql
+- display: MYSQL-1024M-10G
+  id: '22'
+  price: '5.8'
+  resource: '{u''mem'': 1024, u''disk'': 10240}'
+  type: mysql
+- display: 64M
+  id: '101'
+  price: '0.1'
+  resource: '{u''mem'': 64, u''disk'': 2048, u''swap'': 0}'
+  type: runtime
+- display: 128M
+  id: '102'
+  price: '0.2'
+  resource: '{u''mem'': 128, u''disk'': 2048, u''swap'': 0}'
+  type: runtime
+- display: 256M
+  id: '103'
+  price: '0.4'
+  resource: '{u''mem'': 256, u''disk'': 2048, u''swap'': 0}'
+  type: runtime
+- display: 512M
+  id: '104'
+  price: '0.7'
+  resource: '{u''mem'': 512, u''disk'': 2048, u''swap'': 0}'
+  type: runtime
+- display: 1024M
+  id: '105'
+  price: '1.3'
+  resource: '{u''mem'': 1024, u''disk'': 2048, u''swap'': 0}'
+  type: runtime
+- display: 5M
+  id: '201'
+  price: '0'
+  resource: '{u''bandwidth'': 5}'
+  type: network
+- display: 10M
+  id: '202'
+  price: '0.1'
+  resource: '{u''bandwidth'': 10}'
+  type: network
+- display: 15M
+  id: '203'
+  price: '0.2'
+  resource: '{u''bandwidth'': 15}'
+  type: network
+- display: 20M
+  id: '204'
+  price: '0.3'
+  resource: '{u''bandwidth'': 20}'
+  type: network
+solutions:
+- lang: nodejs
+  name: nodejs-web
+  type: web
+- lang: php
+  name: php-web
+  type: web
+- lang: php
+  name: php-worker
+  type: worker
+- lang: java
+  name: java-tomcat
+  type: web
+- lang: java
+  name: java-jetty
+  type: web
+- lang: python
+  name: python-web
+  type: web
+- lang: python
+  name: python-worker
+  type: worker
+- lang: lighttpd-static
+  name: lighttpd-static
+  type: web
