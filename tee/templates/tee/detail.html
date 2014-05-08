@@ -3,8 +3,8 @@
 <p>{{ clothes.c_favor }}</p>
 
 <form action="{% url 'tee:vote' %}" method="post">
-	{% csrf_token %}
-	<input name="c_id" type="text" value="{{ clothes.id }}">
+    {% csrf_token %}
+    <input name="c_id" type="text" value="{{ clothes.id }}">
 
-	<input type="submit" value="Vote">
+    <input type="submit" value="Vote">
 </form>
