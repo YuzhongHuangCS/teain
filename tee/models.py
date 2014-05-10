@@ -33,3 +33,13 @@ class Product(models.Model):
     price       = models.DecimalField(max_digits=8,decimal_places=2)
 
 
+class Cloth(models.Model):
+    c_name = models.CharField(max_length=50)
+    c_type = models.CharField(max_length=20)
+    c_size = models.PositiveIntegerField(default=0)
+    c_left = models.PositiveIntegerField(default=0)
+    c_date = models.DateField(auto_now=True)
+    c_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __unicode__(self):
+        return self.c_name

@@ -1,0 +1,19 @@
+{% extends "tee/base.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h1>衣服列表</h1>
+
+{% for cloth in cloth_list %}
+    <div>
+        <p>name: {{ cloth.c_name }}</p>
+        <p>type: {{ cloth.c_type }}</p>
+        <p>left: {{ cloth.c_left }}</p>
+        <p>price: {{ cloth.c_price }}</p>
+        <hr>
+    </div>
+{% endfor %}
+{% endblock %}

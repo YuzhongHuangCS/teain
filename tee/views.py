@@ -1,9 +1,10 @@
+#coding=utf-8
 from django.shortcuts import render, get_object_or_404
 
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
-from tee.models import Clothes
+from tee.models import Clothes, Cloth
 # Create your views here.
 
 def index(request):
@@ -24,4 +25,13 @@ def vote(request):
         clothes.c_favor += 1
         clothes.save()
         return HttpResponseRedirect(reverse('tee:detail', args=(clothes.id, )))
-    
+
+def list(request):
+
+    cloth_list = Cloth.objects.all()
+    cloth_dict = {
+        'title': '衣服列表',
+        'cloth_list': cloth_list,
+    }
+
+    return render(request, 'tee/list.html', cloth_dict)
