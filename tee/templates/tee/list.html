@@ -9,10 +9,12 @@
 
 {% for cloth in cloth_list %}
     <div>
+        <h2>ID: {{ cloth.id }}</h2>
         <p>name: {{ cloth.c_name }}</p>
         <p>type: {{ cloth.c_type }}</p>
         <p>left: {{ cloth.c_left }}</p>
         <p>price: {{ cloth.c_price }}</p>
+        <a href="{% url 'tee:show' cloth.id %}">link</a>
         <hr>
     </div>
 {% endfor %}

@@ -8,4 +8,6 @@ urlpatterns = patterns('',
     url(r'^vote/$', views.vote, name='vote'),
 
     url(r'^list/$', views.list, name='list'),
+    url(r'^show/(\d+)/$', views.show, name='show'),
+    url(r'^json/$', views.getJson, name='json'),
 )

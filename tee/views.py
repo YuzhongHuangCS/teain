@@ -30,8 +30,24 @@ def list(request):
 
     cloth_list = Cloth.objects.all()
     cloth_dict = {
-        'title': '衣服列表',
+        'title': u'衣服列表',
         'cloth_list': cloth_list,
     }
-
     return render(request, 'tee/list.html', cloth_dict)
+
+def show(request, cloth_id):
+
+    cloth = get_object_or_404(Cloth, pk=cloth_id)
+    cloth_dict = {
+        'title': u'衣服详细',
+        'cloth': cloth,
+    }
+    return render(request, 'tee/show.html', cloth_dict)
+
+from django.core import serializers
+def getJson(request):
+
+    data = serializers.serialize('xml', Cloth.objects.all())
+    return HttpResponse(data)
+
+
