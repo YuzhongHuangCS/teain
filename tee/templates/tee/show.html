@@ -1,0 +1,18 @@
+{% extends "tee/base.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h2>ID: {{ cloth.id }}</h2>
+    <p>name: {{ cloth.c_name }}</p>
+    <p>type: {{ cloth.c_type }}</p>
+    <p>left: {{ cloth.c_left }}</p>
+    <p>price: {{ cloth.c_price }}</p>
+
+    <a href="">去付款</a>
+</div>
+{% endblock %}
