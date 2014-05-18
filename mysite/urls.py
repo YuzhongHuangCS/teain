@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # my app
-    url(r'^tee/', include('tee.urls', namespace='tee')),
+    url(r'^tee/', include('tee.urls', namespace='tee')), # test
+    url(r'^tea/', include('tea.urls', namespace='tea')),
 )

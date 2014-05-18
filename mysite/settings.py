@@ -36,7 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tee',
+    'tee', # test
+    'tea',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,8 +66,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tee',
         'HOST': '127.0.0.1',
-        'USER': 'tee',
-        'PASSWORD': 'teeteetee',
+        'USER': 'root',
+        'PASSWORD': 'cmjcmj',
         'PORT': 3306,
     }
 }
