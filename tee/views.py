@@ -8,7 +8,7 @@ from tee.models import Clothes, Cloth
 # Create your views here.
 
 def index(request):
-    return render(request, 'tee/index.html', None)
+    return render(request, 'tee/show.html', None)
 
 def detail(request, clothes_id):
     clothes = get_object_or_404(Clothes, pk=clothes_id)

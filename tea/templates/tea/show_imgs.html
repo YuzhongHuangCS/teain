@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+</head>
+<body>
+{% for img in cloth_imgs %}
+    <div>
+        <h2>ID: {{ img.cloth.id }}</h2>
+        <p>name: {{ img.cloth.title }}</p>
+        <img src="/media/{{ img.img_src }}">
+        <hr>
+    </div>
+{% endfor %}
+</body>
+</html>

@@ -13,18 +13,18 @@ class Cloth(models.Model):
     get = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
-    img_src = models.CharField(max_length=50)
+    img_src = models.ImageField(upload_to='./tea')
 
     def __unicode__(self):
         return self.title
 
 class ClothImg(models.Model):
 
-    img_src = models.CharField(max_length=50)
+    img_src = models.ImageField(upload_to='./tea')
     cloth = models.ForeignKey(Cloth)
 
     def __unicode__(self):
-        return self.img_src
+        return self.cloth.title
 
 class ClothSize(models.Model):
 
@@ -32,4 +32,4 @@ class ClothSize(models.Model):
     cloth = models.ForeignKey(Cloth)
 
     def __unicode__(self):
-        return self.size
+        return self.cloth.title + self.size
