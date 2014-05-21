@@ -1,0 +1,17 @@
+{% extends "tea/base.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content%}
+    {% for cloth in cloth_list %}
+        <ul>
+            <li>{{ cloth.id }}</li>
+            <li>{{ cloth.summary }}</li>
+            <li>{{ cloth.content }}</li>
+            <li>{{ cloth.price }}</li>
+            <li><img src="/media/{{ cloth.img_src }}"></li>
+        </ul>
+    {% endfor %}
+{% endblock %}

@@ -15,10 +15,10 @@ def get_cloth(request, cloth_id):
     data = serializers.serialize('json', cloth)
     return HttpResponse(data)
 
-def get_clothes(request, start_id, limit):
+def get_cloth_list(request, start_id, limit):
 
-    clothes = Cloth.objects.all()[start_id:start_id+limit]
-    data = serializers.serialize('json', clothes)
+    cloth_list = Cloth.objects.all()[start_id:start_id+limit]
+    data = serializers.serialize('json', cloth_list)
     return HttpResponse(data)
 
 def get_cloth_imgs(request, cloth_id):
@@ -55,37 +55,37 @@ def cloth_imgs_show(request, cloth_id):
 
 # user register
 #--------------------------------------------------------------------
-
-def register(request):
-
-    if 'POST' == request.method:
-        username = request.POST['username']
-        password = request.POST['password']
-        email = request.POST['email']
-        user = User.objects.create_user(username, email, password)
-        if user is not None:
-            user.save()
-            data = serializers.serialize('json', {'msg': 'ok'})
-            return HttpResponse(data)
-        else:
-            data = serializers.serialize('json', {'msg': 'failed'})
-            return HttpResponse(data)
-
-
-def login_user(request):
-
-    if 'POST' == request.method:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                # return HttpResponseRedirect()
-            else:
-                pass
-
-
-def logout_user(request):
-
-    logout(request)
+#
+# def register(request):
+#
+#     if 'POST' == request.method:
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         email = request.POST['email']
+#         user = User.objects.create_user(username, email, password)
+#         if user is not None:
+#             user.save()
+#             data = serializers.serialize('json', {'msg': 'ok'})
+#             return HttpResponse(data)
+#         else:
+#             data = serializers.serialize('json', {'msg': 'failed'})
+#             return HttpResponse(data)
+#
+#
+# def login_user(request):
+#
+#     if 'POST' == request.method:
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         user = authenticate(username=username, password=password)
+#         if user is not None:
+#             if user.is_active:
+#                 login(request, user)
+#                 # return HttpResponseRedirect()
+#             else:
+#                 pass
+#
+#
+# def logout_user(request):
+#
+#     logout(request)
