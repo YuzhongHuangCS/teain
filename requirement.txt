@@ -98,7 +98,7 @@ POST:
     email
 return:
     'ok'        #成功
-    'failed'    #失败
+    'None'      #失败
 
 
 2.用户登录
@@ -108,7 +108,7 @@ POST:
     password
 return:
     'ok'        #成功
-    'failed'    #失败
+    'None'      #失败
 
 3.用户注销
 url: /accounts/logout/
@@ -117,7 +117,7 @@ return:
 
 
 4.用户信息
-url: /api/accounts/userinfo/
+url: /accounts/userinfo/
 
 return 
     'None'  #未登录
@@ -133,3 +133,8 @@ json:
         date_joined #加入时间
     }
 }]
+
+/accounts/userinfo/
+
+[{"pk": 3, "model": "auth.user", "fields": {"username": "hello", "first_name": "", "last_name": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2014-05-22T12:19:11Z", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$12000$BiJhk1PT6FYr$zeJxnBzX5iWk/7ZuSpQNvrR4t+kCpEvvXORoogTqu/I=", "email": "", "date_joined": "2014-05-22T02:17:35Z"}}]
+
