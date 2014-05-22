@@ -46,7 +46,7 @@ class Order(models.Model):
     ord_date = models.DateTimeField(auto_now=True)
 
     payed = models.BooleanField(default=False)
-    status = models.CharField(default='未付款')
+    status = models.CharField(max_length=50, default='未付款')
 
     def __unicode__(self):
         return self.user.username + ' -- ' + self.cloth.title
