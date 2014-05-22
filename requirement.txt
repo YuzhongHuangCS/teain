@@ -87,3 +87,49 @@ json:
 {"pk": 3, "model": "tea.clothsize", "fields": {"cloth": 1, "size": "XXL"}}, 
 {"pk": 4, "model": "tea.clothsize", "fields": {"cloth": 1, "size": "XXXL"}}]
 
+
+用户模块
+1.用户注册
+url: /accounts/register/ 
+POST:
+    username
+    password
+    repassword  #自己检测好了
+    email
+return:
+    'ok'        #成功
+    'failed'    #失败
+
+
+2.用户登录
+url: /accounts/login/
+POST:
+    username
+    password
+return:
+    'ok'        #成功
+    'failed'    #失败
+
+3.用户注销
+url: /accounts/logout/
+return:
+    'ok'        #注销成功
+
+
+4.用户信息
+url: /api/accounts/userinfo/
+
+return 
+    'None'  #未登录
+json:
+[{
+    pk  #primary key
+    fields = {
+        username
+        firstname
+        lastname
+        last_login  #上次登录时间 2014-05-22T12:19:11Z
+        email
+        date_joined #加入时间
+    }
+}]

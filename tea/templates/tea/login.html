@@ -1,0 +1,14 @@
+{% extends "tea/base.html" %}
+
+{% block title %}Login an account{% endblock %}
+
+{% block content %}
+  <h1>Login an account</h1>
+
+  <form action="" method="post">
+      {% csrf_token %}
+      <input name="username" type="text">
+      <input name="password" type="password">
+      <input type="submit" value="Login the account">
+  </form>
+{% endblock %}

@@ -1,7 +1,8 @@
 #coding=utf-8
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 
@@ -53,8 +54,91 @@ def cloth_imgs_show(request, cloth_id):
     }
     return render(request, 'tea/show_imgs.html', cloth_dict)
 
-# user register
+
+# user
 #--------------------------------------------------------------------
+
+def user_info(request):
+
+    if not request.user.is_authenticated():
+        return HttpResponse("None")
+
+    user = request.user
+    data = serializers.serialize('json', (user,))
+    return HttpResponse(data)
+
+
+def login_view(request):
+
+    if request.method == 'POST':
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+        user = authenticate(username=username, password=password)
+        if user is not None and user.is_active:
+            login(request, user)
+            return HttpResponse('ok')
+        return HttpResponse('None')
+    else:
+        return render(request, 'tea/login.html', None)
+
+def logout_view(request):
+
+    logout(request)
+    return HttpResponse('ok')
+
+
+class reg_form(object):
+    error = ''
+    valid = False
+
+    def __init__(self, POST):
+        self.username = POST['username']
+        self.password = POST['password']
+        self.email = POST['email']
+
+        # to do, check validation
+        self.valid = True
+
+    def is_valid(self):
+        return self.valid
+
+def register(request):
+
+    if request.method == 'POST':
+        form = reg_form(request.POST)
+        if form.is_valid():
+            user = User.objects.create_user(form.username, form.email, form.password)
+            if user is not None:
+                user.save()
+                return HttpResponse('ok')
+        return HttpResponse('None')
+    else:
+        return render(request, 'tea/register.html', None)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #
 # def register(request):
 #
