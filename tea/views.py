@@ -6,7 +6,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 
-from tea.models import Cloth, ClothImg, ClothSize
+from tea.models import Cloth, ClothImg, ClothSize, Order
+from tea.forms import RegisterForm, OrderForm
+
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def get_cloth(request, cloth_id):
@@ -86,34 +89,58 @@ def logout_view(request):
     logout(request)
     return HttpResponse('ok')
 
-
-class reg_form(object):
-    error = ''
-    valid = False
-
-    def __init__(self, POST):
-        self.username = POST['username']
-        self.password = POST['password']
-        self.email = POST['email']
-
-        # to do, check validation
-        self.valid = True
-
-    def is_valid(self):
-        return self.valid
-
 def register(request):
 
     if request.method == 'POST':
-        form = reg_form(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(form.username, form.email, form.password)
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            email = form.cleaned_data['email']
+
+            user = User.objects.create_user(username, password=password, email=email)
             if user is not None:
                 user.save()
                 return HttpResponse('ok')
         return HttpResponse('None')
     else:
-        return render(request, 'tea/register.html', None)
+        form = RegisterForm()
+        form_dict = {
+            'form': form,
+        }
+        return render(request, 'tea/register_form.html', form_dict)
+
+
+# ----------------------------------------
+def make_order(request):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            user_id = form.cleaned_data['user_id']
+            user = User.objects.get(pk=user_id)
+            cloth_id = form.cleaned_data['cloth_id']
+            cloth = Cloth.objects.get(pk=cloth_id)
+            num = form.cleaned_data['num']
+            price = cloth.price
+
+            order = Order(user=user, cloth=cloth, num=num, sum_price=num*price)
+            order.save()
+            return HttpResponse('ok')
+        return HttpResponse('None')
+    else:
+        form = OrderForm()
+        form_dict = {
+            'form': form,
+        }
+        return render(request, 'tea/order_form.html', form_dict)
+
+@login_required
+def user_orders(request):
+
+    user = request.user
+    orders = user.order_set.all()
+    data = serializers.serialize('json', orders)
+    return HttpResponse(data)
 
 
 
@@ -132,6 +159,37 @@ def register(request):
 
 
 
+
+
+
+
+# class reg_form(object):
+#     error = ''
+#     valid = False
+#
+#     def __init__(self, POST):
+#         self.username = POST['username']
+#         self.password = POST['password']
+#         self.email = POST['email']
+#
+#         # to do, check validation
+#         self.valid = True
+#
+#     def is_valid(self):
+#         return self.valid
+#
+# def register_a(request):
+#
+#     if request.method == 'POST':
+#         form = reg_form(request.POST)
+#         if form.is_valid():
+#             user = User.objects.create_user(form.username, form.email, form.password)
+#             if user is not None:
+#                 user.save()
+#                 return HttpResponse('ok')
+#         return HttpResponse('None')
+#     else:
+#         return render(request, 'tea/register.html', None)
 
 
 

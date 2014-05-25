@@ -94,11 +94,11 @@ url: /accounts/register/
 POST:
     username
     password
-    repassword  #自己检测好了
+    repassword  # 自己检测好了
     email
 return:
-    'ok'        #成功
-    'None'      #失败
+    'ok'        # 成功
+    'None'      # 失败
 
 
 2.用户登录
@@ -107,20 +107,20 @@ POST:
     username
     password
 return:
-    'ok'        #成功
-    'None'      #失败
+    'ok'        # 成功
+    'None'      # 失败
 
 3.用户注销
 url: /accounts/logout/
 return:
-    'ok'        #注销成功
+    'ok'        # 注销成功
 
 
 4.用户信息
 url: /accounts/userinfo/
 
-return 
-    'None'  #未登录
+return:
+    'None'  # 未登录
 json:
 [{
     pk  #primary key
@@ -128,13 +128,49 @@ json:
         username
         firstname
         lastname
-        last_login  #上次登录时间 2014-05-22T12:19:11Z
+        last_login  # 上次登录时间 2014-05-22T12:19:11Z
         email
-        date_joined #加入时间
+        date_joined # 加入时间
     }
 }]
 
 /accounts/userinfo/
 
 [{"pk": 3, "model": "auth.user", "fields": {"username": "hello", "first_name": "", "last_name": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2014-05-22T12:19:11Z", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$12000$BiJhk1PT6FYr$zeJxnBzX5iWk/7ZuSpQNvrR4t+kCpEvvXORoogTqu/I=", "email": "", "date_joined": "2014-05-22T02:17:35Z"}}]
+
+
+订单模块：
+1.订单信息
+url: /api/make_order/
+POST:
+    user_id
+    cloth_id
+    num
+
+return:
+    'ok'    # 订单产生成功
+    'None'  # 失败
+
+
+2.获取某人的订单集
+url: /api/get_user_orders/
+
+return:
+json:
+[{
+    pk # primary key
+    fields = {
+        user        # user id
+        cloth       # cloth id
+        num         # 数量
+        sum_price   # 总价
+        ord_date    # 下单日期 2014-05-25T12:55:47Z
+        status      # 订单状态 未付款，付了款，发货中，收到..
+        payed       # 是否已经付款 true, false
+    }
+},
+...]
+
+api/get_user_orders/
+[{"pk": 2, "model": "tea.order", "fields": {"ord_date": "2014-05-25T12:55:47Z", "status": "\u672a\u4ed8\u6b3e", "payed": false, "cloth": 1, "num": 5, "user": 3, "sum_price": "100.00"}}, {"pk": 3, "model": "tea.order", "fields": {"ord_date": "2014-05-25T12:55:59Z", "status": "\u672a\u4ed8\u6b3e", "payed": false, "cloth": 2, "num": 3, "user": 3, "sum_price": "75.00"}}]
 

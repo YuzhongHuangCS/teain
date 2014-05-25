@@ -36,17 +36,19 @@ class ClothSize(models.Model):
     def __unicode__(self):
         return self.cloth.title + ' -- '+ self.size
 
+
 class Order(models.Model):
 
     user = models.ForeignKey(User)
     cloth = models.ForeignKey(Cloth)
+    num = models.IntegerField()
 
-    num = models.IntegerField(default=0)
     sum_price = models.DecimalField(max_digits=10, decimal_places=2)
-    ord_date = models.DateTimeField(auto_now=True)
 
+    ord_date = models.DateTimeField(auto_now=True)
     payed = models.BooleanField(default=False)
     status = models.CharField(max_length=50, default='未付款')
 
     def __unicode__(self):
         return self.user.username + ' -- ' + self.cloth.title
+
