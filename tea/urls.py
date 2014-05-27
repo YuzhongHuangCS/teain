@@ -33,9 +33,12 @@ urlpatterns = patterns('',
     url(r'^cloth_show/(\d+)/$', views.cloth_show),
     url(r'^cloth_imgs/(\d+)/$', views.cloth_imgs_show),
 
-    url(r'^cloth_list/$', ListView.as_view(
-        queryset=Cloth.objects.all(),
-        context_object_name='cloth_list',
-        template_name='tea/cloth_list.html'
-    )),
+    url(r'^cloth_list/$', views.cloth_list),
+    url(r'^cloth_detail/(\d+)/$', views.cloth_detail),
+
+    # url(r'^cloth_list/$', ListView.as_view(
+    #     queryset=Cloth.objects.all(),
+    #     context_object_name='cloth_list',
+    #     template_name='tea/cloth_list.html'
+    # )),
 )

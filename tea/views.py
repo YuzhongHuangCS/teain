@@ -37,25 +37,7 @@ def get_cloth_sizes(request, cloth_id):
     data = serializers.serialize('json', cloth_sizes)
     return HttpResponse(data)
 
-#-----------------------------------------------------------
 
-def cloth_show(request, cloth_id):
-
-    cloth = Cloth.objects.get(pk=cloth_id)
-    cloth_dict = {
-        'title': u'衣服详细',
-        'cloth': cloth,
-    }
-    return render(request, 'tea/show.html', cloth_dict)
-
-def cloth_imgs_show(request, cloth_id):
-
-    cloth_imgs = ClothImg.objects.filter(cloth=cloth_id)
-    cloth_dict = {
-        'title': u'衣服图片列表',
-        'cloth_imgs': cloth_imgs,
-    }
-    return render(request, 'tea/show_imgs.html', cloth_dict)
 
 
 # user
@@ -144,11 +126,45 @@ def user_orders(request):
 
 
 
+# cloth display
+#---------------------------------------------------------------------------------
+def cloth_list(request):
+
+    cloth_list = Cloth.objects.all()
+    cloth_dict = {
+        'title': '衣服列表',
+        'cloth_list': cloth_list,
+    }
+    return render(request, 'tea/cloth_list.html', cloth_dict)
+
+def cloth_detail(request, cloth_id):
+
+    cloth = Cloth.objects.get(pk=cloth_id)
+    cloth_dict = {
+        'title': '衣服详细',
+        'cloth': cloth,
+    }
+    return render(request, 'tea/cloth_detail.html', cloth_dict)
 
 
 
+def cloth_show(request, cloth_id):
 
+    cloth = Cloth.objects.get(pk=cloth_id)
+    cloth_dict = {
+        'title': '衣服详细',
+        'cloth': cloth,
+    }
+    return render(request, 'tea/show.html', cloth_dict)
 
+def cloth_imgs_show(request, cloth_id):
+
+    cloth_imgs = ClothImg.objects.filter(cloth=cloth_id)
+    cloth_dict = {
+        'title': '衣服图片列表',
+        'cloth_imgs': cloth_imgs,
+    }
+    return render(request, 'tea/show_imgs.html', cloth_dict)
 
 
 

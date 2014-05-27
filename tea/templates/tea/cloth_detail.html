@@ -1,0 +1,50 @@
+{% extends "tea/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content%}
+
+<div class="container marketing">
+
+      <!-- <hr class="featurette-divider"> -->
+      <br class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-6">
+            <img src="/media/{{ cloth.img_src }}" width="450" height="600">
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <h2>{{ cloth.title }}</h2>
+                    <small>{{ cloth.summary }}</small>
+                </div>
+                <div class="panel-heading">
+                    <p>价格：{{ cloth.price }}</p>
+                    <p>快递至杭州：10.00</p>
+                </div>
+                <div class="panel-body">
+                    <p>作者：{{ cloth.author }}</p>
+                    <p>{{ cloth.content }}</p>
+                </div>
+                <div class="panel-footer">
+                    <p>众筹所需：<span class="badge">{{ cloth.need }}</span></p>
+                    <p>获得数量：<span class="badge">{{ cloth.get }}</span></p>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        数量：<input type="number" value="1"><br>
+                    </p>
+                    <a class="btn btn-danger" href="#">喜欢，支持一下</a>
+                    <a class="btn btn-success" href="#">东西不错，点赞</a>
+                </div>
+            </div>
+
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+    </div>
+
+{% endblock %}
