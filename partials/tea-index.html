@@ -1,0 +1,32 @@
+<div id="index">
+    <div id="welcome">
+        <p>喜欢T恤?那真是来对地方了。Tea-in是所有T恤爱好者的Party。
+            <span>加入</span>
+        </p>
+    </div>
+    <div id="banner">
+    </div>
+    <div id="popular">
+        <p id="text">热门作品/</p>
+        <div class="line"></div>
+        <div id="gallery">
+            <div class="item" ng-repeat="cloth in clothes">
+                <a href="#/item/{{cloth.pk}}">
+                    <div class="imgWrapper">
+                        <img ng-src={{cloth.fields.img_src}}>
+                        <div class="tea-it">Tea-it</div>
+                    </div>
+                </a>
+                <div class="text">
+                    <p class="title">{{cloth.fields.title}}
+                        <span class="author">| {{cloth.fields.author}}</span>
+                    </p>
+                    <p class="progressText">众筹进度
+                        <span class="num">已筹集{{cloth.fields.get}}/目标{{cloth.fields.need}}</span>
+                    </p>
+                    <progress id="progressBar" value={{cloth.fields.get}} max={{cloth.fields.need}}></progress>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

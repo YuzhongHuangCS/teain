@@ -1,0 +1,12 @@
+<div id="login">
+    <img src="img/logo.png">
+    <form ng-model="info">
+        <p>用户名</p>
+        <input type="text" name="id" ng-model="info.id">
+        <p>密码</p>
+        <input type="password" name="password" ng-model="info.password">
+        <p>邮箱</p>
+        <input type="email" name="email" ng-model="info.email">
+        <input type="submit" id="submit" value="注册" ng-click="register()">
+    </form>
+</div>
