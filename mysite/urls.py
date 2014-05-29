@@ -16,6 +16,5 @@ urlpatterns = patterns('',
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve',{ 'document_root': settings.STATIC_ROOT }),
 
     # my app
-    url(r'^tee/', include('tee.urls', namespace='tee')), # test
     url(r'^tea/', include('tea.urls', namespace='tea')),
 )

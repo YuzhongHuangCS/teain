@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Cloth(models.Model):
     title = models.CharField(max_length=50)
+    keywords = models.CharField(max_length=100)
     summary = models.CharField(max_length=200)
     author = models.CharField(max_length=20)
     type = models.CharField(max_length=20)
@@ -14,11 +15,13 @@ class Cloth(models.Model):
     need = models.IntegerField(default=0)
     get = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    end_date = models.DateField()
 
     img_src = models.ImageField(upload_to='./tea/clothes_imgs')
 
     def __unicode__(self):
         return self.title
+
 
 class ClothImg(models.Model):
 
@@ -27,6 +30,16 @@ class ClothImg(models.Model):
 
     def __unicode__(self):
         return self.cloth.title
+
+
+class ClothDesc(models.Model):
+
+    img_src = models.ImageField(upload_to='./tea/clothes_descs')
+    cloth = models.ForeignKey(Cloth)
+
+    def __unicode__(self):
+        return self.cloth.title
+
 
 class ClothSize(models.Model):
 

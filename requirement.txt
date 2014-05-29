@@ -8,15 +8,17 @@ json:
 [{
     pk # primary key(id)
     fields = {
-        title   # 标题
-        author  # 作者
-        summary # 概要
-        type    # 类型
-        content # 内容
-        price   # 价格
-        need    # 所需众筹数
-        get     # 获得众筹数
-        img_src # 主图路径
+        title    # 标题
+        author   # 作者
+        keywords # 关键词
+        summary  # 概要
+        type     # 类型
+        content  # 内容
+        price    # 价格
+        need     # 所需众筹数
+        get      # 获得众筹数
+        end_date # 众筹结束日期 2014-05-31
+        img_src  # 主图路径
     }
 }]
 
@@ -26,25 +28,27 @@ json:
 
 
 2.获取多件衣服信息
-url: /api/get_cloth_list/{start_id}/{limit}/
+url: /api/get_cloth_list/{start}/{limit}/
 json:
 [{
     pk # primary key(id)
     fields = {
-        title   # 标题
-        author  # 作者
-        summary # 概要
-        type    # 类型
-        content # 内容
-        price   # 价格
-        need    # 所需众筹数
-        get     # 获得众筹数
-        img_src # 主图路径
+        title    # 标题
+        author   # 作者
+        keywords # 关键词
+        summary  # 概要
+        type     # 类型
+        content  # 内容
+        price    # 价格
+        need     # 所需众筹数
+        get      # 获得众筹数
+        end_date # 众筹结束日期 2014-05-31
+        img_src  # 主图路径
     }
 }, 
 ...]
 
-/api/get_cloth_list/0/2
+/api/get_cloth_list/1/2
 
 [{"pk": 1, "model": "tea.cloth", "fields": {"get": 10, "price": "44.33", "author": "\u549a\u549a\u549a", "summary": "\u53ea\u662f\u7b2c\u4e00\u4ef6", "content": "\u968f\u4fbf\u6765\u70b9\u5185\u5bb9\r\n\u968f\u4fbf\u6765\u70b9\u5185\u5bb9\r\n\u968f\u4fbf\u6765\u70b9\u5185\u5bb9\r\n\u968f\u4fbf\u6765\u70b9\u5185\u5bb9", "img_src": "001/001.jpg", "need": 20, "title": "\u7b2c\u4e00\u4ef6\u8863\u670d"}}, 
 {"pk": 2, "model": "tea.cloth", "fields": {"get": 5, "price": "22.22", "author": "\u8c01\u77e5\u9053", "summary": "\u7b2c\u4e8c\u4ef6\u5c31\u7b2c\u4e8c\u4ef6", "content": "\u4e0d\u77e5\u9053\u4e0d\u77e5\u9053\r\n\u4e0d\u77e5\u9053\u4e0d\u77e5\u9053\r\n\u4e0d\u77e5\u9053\u4e0d\u77e5\u9053\r\n\u4e0d\u77e5\u9053\u4e0d\u77e5\u9053", "img_src": "002/001.jpg", "need": 10, "title": "\u7b2c\u4e8c\u4ef6T\u6064"}}]
@@ -86,6 +90,24 @@ json:
 {"pk": 2, "model": "tea.clothsize", "fields": {"cloth": 1, "size": "XL"}}, 
 {"pk": 3, "model": "tea.clothsize", "fields": {"cloth": 1, "size": "XXL"}}, 
 {"pk": 4, "model": "tea.clothsize", "fields": {"cloth": 1, "size": "XXXL"}}]
+
+
+5.获取单件衣服的描述图集
+url: /api/get_cloth_descs/{cloth_id}/
+json:
+[{
+    pk # primary key(id)
+    fields = {
+        cloth   # cloth_id
+        img_src # 图片路径
+    }
+},
+...]
+
+/api/get_cloth_descs/1/
+
+[{"pk": 1, "model": "tea.clothdesc", "fields": {"cloth": 1, "img_src": "tea/clothes_descs/9.jpg"}}, 
+{"pk": 2, "model": "tea.clothdesc", "fields": {"cloth": 1, "img_src": "tea/clothes_descs/10.jpg"}}]
 
 
 用户模块

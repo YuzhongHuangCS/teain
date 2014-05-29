@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^api/get_cloth/(\d+)/$', views.get_cloth, name='cloth'),
     url(r'^api/get_cloth_list/(\d+)/(\d+)/$', views.get_cloth_list, name='cloth_list'),
     url(r'^api/get_cloth_imgs/(\d+)/$', views.get_cloth_imgs, name='cloth_imgs'),
+    url(r'^api/get_cloth_descs/(\d+)/$', views.get_cloth_desc, name='cloth_descs'),
     url(r'^api/get_cloth_sizes/(\d+)/$', views.get_cloth_sizes, name='cloth_sizes'),
 
     # user log
