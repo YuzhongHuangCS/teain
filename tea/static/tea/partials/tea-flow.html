@@ -1,0 +1,23 @@
+<div id="flow">
+    <div id="popular">
+        <div id="gallery">
+            <div class="item" ng-repeat="cloth in clothes">
+                <a href="#/item/{{cloth.pk}}">
+                    <div class="imgWrapper">
+                        <img ng-src={{cloth.fields.img_src}}>
+                        <div class="tea-it">Tea-it</div>
+                    </div>
+                </a>
+                <div class="text">
+                    <p class="title">{{cloth.fields.title}}
+                        <span class="author">| {{cloth.fields.author}}</span>
+                    </p>
+                    <p class="progressText">众筹进度
+                        <span class="num">已筹集{{cloth.fields.get}}/目标{{cloth.fields.need}}</span>
+                    </p>
+                    <progress id="progressBar" value={{cloth.fields.get}} max={{cloth.fields.need}}></progress>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

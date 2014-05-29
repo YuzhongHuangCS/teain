@@ -6,6 +6,8 @@ from tea import views
 
 urlpatterns = patterns('',
 
+    url(r'^$', views.index),
+
     # json api
     url(r'^api/get_cloth/(\d+)/$', views.get_cloth, name='cloth'),
     url(r'^api/get_cloth_list/(\d+)/(\d+)/$', views.get_cloth_list, name='cloth_list'),

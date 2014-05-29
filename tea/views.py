@@ -12,6 +12,10 @@ from tea.forms import RegisterForm, OrderForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+def index(request):
+
+    return render(request, 'tea/index.html', None)
+
 def get_cloth(request, cloth_id):
 
     cloth = []
