@@ -6,7 +6,7 @@ var teaControllers = angular.module('teaControllers', []);
 
 teaControllers.controller('indexController', ['$scope', '$http',
     function($scope, $http){
-        var send = 'http://127.0.0.1:8000/tea/api/get_cloth_list/1/6/';
+        var send = 'http://127.0.0.1:8000/api/get_cloth_list/1/6/';
         $http.get(send).success(function(data){
             for (var i = data.length - 1; i >= 0; i--) {
                 data[i].fields.img_src = '/media/' + data[i].fields.img_src;

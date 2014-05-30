@@ -16,12 +16,16 @@ def index(request):
 
     return render(request, 'tea/index.html', None)
 
+
 def get_cloth(request, cloth_id):
+
+    cloth_id = int(cloth_id)
 
     cloth = []
     cloth.append(Cloth.objects.get(pk=cloth_id))
     data = serializers.serialize('json', cloth)
     return HttpResponse(data)
+
 
 def get_cloth_list(request, start_id, limit):
 
@@ -33,19 +37,30 @@ def get_cloth_list(request, start_id, limit):
     data = serializers.serialize('json', cloth_list)
     return HttpResponse(data)
 
+
 def get_cloth_imgs(request, cloth_id):
+
+    cloth_id = int(cloth_id)
 
     cloth_imgs = ClothImg.objects.filter(cloth=cloth_id)
     data = serializers.serialize('json', cloth_imgs)
     return HttpResponse(data)
 
+
+
 def get_cloth_desc(request, cloth_id):
+
+    cloth_id = int(cloth_id)
 
     cloth_desc = ClothDesc.objects.filter(cloth=cloth_id)
     data = serializers.serialize('json', cloth_desc)
     return HttpResponse(data)
 
+
+
 def get_cloth_sizes(request, cloth_id):
+
+    cloth_id = int(cloth_id)
 
     cloth_sizes = ClothSize.objects.filter(cloth=cloth_id)
     data = serializers.serialize('json', cloth_sizes)
