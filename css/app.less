@@ -60,6 +60,9 @@ nav {
         border-radius: 0.5rem;
         box-shadow: 0 0 2.5rem @green;
         opacity: 0.9;
+        a{
+            text-decoration: none;
+        }
         p {
             font-size: 1.2rem;
             letter-spacing: 0.1rem;
@@ -196,16 +199,27 @@ progress {
     -moz-appearance: none;
     appearance: none;
     border: none;
-}
-progress[value]::-webkit-progress-bar {
     background-color: #eee;
     border-radius: 2px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
-progress[value]::-webkit-progress-value {
+progress::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+progress::-webkit-progress-value {
     background-image: -webkit-linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, .1) 33%, rgba(0, 0, 0, .1) 66%, transparent 66%), -webkit-linear-gradient(top, rgba(255, 255, 255, .25), rgba(0, 0, 0, .25)), -webkit-linear-gradient(left, #5CB85C, #70D016);
     border-radius: 2px;
     background-size: 35px 20px, 100% 100%, 100% 100%;
+    -webkit-animation: animate-stripes 5s linear infinite;
+    animation: animate-stripes 5s linear infinite;
+}
+progress::-moz-progress-bar {
+    background-image: -moz-linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, .1) 33%, rgba(0, 0, 0, .1) 66%, transparent 66%), -moz-linear-gradient(top, rgba(255, 255, 255, .25), rgba(0, 0, 0, .25)), -moz-linear-gradient(left, #5CB85C, #70D016);
+    border-radius: 2px;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+    animation: animate-stripes 5s linear infinite;
 }
 #item {
     #exhibit {
@@ -294,7 +308,7 @@ progress[value]::-webkit-progress-value {
     padding: 1.5rem 1rem;
     background-color: #FFF;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
-    .item {
+    .block {
         display: inline-block;
         width: 33%;
         -moz-box-sizing: border-box;

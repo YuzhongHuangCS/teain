@@ -1,19 +1,18 @@
 <div id="flow">
-    <div class="item" ng-repeat="cloth in clothes">
-        <a href="#/item/{{cloth.pk}}">
-            <div class="imgWrapper">
-                <img ng-src={{cloth.fields.img_src}}>
-                <div class="tea-it">Tea-it</div>
-            </div>
-        </a>
-        <div class="text">
-            <p class="title">{{cloth.fields.title}}
-                <span class="author">| {{cloth.fields.author}}</span>
-            </p>
-            <p class="progressText">众筹进度
-                <span class="num">已筹集{{cloth.fields.get}}/目标{{cloth.fields.need}}</span>
-            </p>
-            <progress id="progressBar" value={{cloth.fields.get}} max={{cloth.fields.need}}></progress>
-        </div>
+    <div class="block" ng-repeat="cloth in clothes1" ng-include="'partials/tea-flow-block.html'">
+    </div>
+    <div class="block" ng-repeat="cloth in clothes2" ng-include="'partials/tea-flow-block.html'">
+    </div>
+    <div class="block" ng-repeat="cloth in clothes3" ng-include="'partials/tea-flow-block.html'">
+    </div>
+    <div class="block" ng-repeat="cloth in clothes4" ng-include="'partials/tea-flow-block.html'">
+    </div>
+    <div class="block" ng-repeat="cloth in clothes5" ng-include="'partials/tea-flow-block.html'">
+    </div>
+    <div class="block" ng-repeat="cloth in clothes6" ng-include="'partials/tea-flow-block.html'">
+    </div>
+    <div class="block" ng-repeat="cloth in clothes7" ng-include="'partials/tea-flow-block.html'">
+    </div>
+    <div class="block" ng-repeat="cloth in clothes8" ng-include="'partials/tea-flow-block.html'">
     </div>
 </div>
