@@ -2,7 +2,7 @@
 
 /* Services */
 // var baseurl = 'http://2.teeshirt.sinaapp.com/';
-var baseurl = 'http://127.0.0.1:8000/';
+var baseurl = 'http://218.244.131.160:8000/';
 
 angular.module('tshirt', ['ngResource']).
 factory('tshirt', function($resource) {
