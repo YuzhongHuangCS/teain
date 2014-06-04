@@ -24,8 +24,10 @@ def get_cloth(request, cloth_id):
     cloth = []
     cloth.append(Cloth.objects.get(pk=cloth_id))
     data = serializers.serialize('json', cloth)
-    return HttpResponse(data)
 
+    response =  HttpResponse(data)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
 
 def get_cloth_list(request, start_id, limit):
 
@@ -35,8 +37,10 @@ def get_cloth_list(request, start_id, limit):
 
     cloth_list = Cloth.objects.all()[start_id:start_id+limit]
     data = serializers.serialize('json', cloth_list)
-    return HttpResponse(data)
 
+    response =  HttpResponse(data)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
 
 def get_cloth_imgs(request, cloth_id):
 
@@ -44,7 +48,10 @@ def get_cloth_imgs(request, cloth_id):
 
     cloth_imgs = ClothImg.objects.filter(cloth=cloth_id)
     data = serializers.serialize('json', cloth_imgs)
-    return HttpResponse(data)
+
+    response =  HttpResponse(data)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
 
 
 
@@ -54,7 +61,10 @@ def get_cloth_desc(request, cloth_id):
 
     cloth_desc = ClothDesc.objects.filter(cloth=cloth_id)
     data = serializers.serialize('json', cloth_desc)
-    return HttpResponse(data)
+
+    response =  HttpResponse(data)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
 
 
 
@@ -64,9 +74,10 @@ def get_cloth_sizes(request, cloth_id):
 
     cloth_sizes = ClothSize.objects.filter(cloth=cloth_id)
     data = serializers.serialize('json', cloth_sizes)
-    return HttpResponse(data)
 
-
+    response =  HttpResponse(data)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
 
 
 # user
@@ -79,7 +90,10 @@ def user_info(request):
 
     user = request.user
     data = serializers.serialize('json', (user,))
-    return HttpResponse(data)
+
+    response =  HttpResponse(data)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
 
 
 def login_view(request):
@@ -90,15 +104,20 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None and user.is_active:
             login(request, user)
-            return HttpResponse('ok')
-        return HttpResponse('None')
+            response =  HttpResponse('ok')
+            response['Access-Control-Allow-Origin'] = '*'
+            return response
     else:
         return render(request, 'tea/login.html', None)
 
 def logout_view(request):
 
     logout(request)
-    return HttpResponse('ok')
+
+    response =  HttpResponse('ok')
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
+
 
 def register(request):
 
@@ -112,8 +131,13 @@ def register(request):
             user = User.objects.create_user(username, password=password, email=email)
             if user is not None:
                 user.save()
-                return HttpResponse('ok')
-        return HttpResponse('None')
+                response =  HttpResponse('ok')
+                response['Access-Control-Allow-Origin'] = '*'
+                return response
+
+        response =  HttpResponse('None')
+        response['Access-Control-Allow-Origin'] = '*'
+        return response
     else:
         form = RegisterForm()
         form_dict = {
@@ -136,8 +160,12 @@ def make_order(request):
 
             order = Order(user=user, cloth=cloth, num=num, sum_price=num*price)
             order.save()
-            return HttpResponse('ok')
-        return HttpResponse('None')
+            response =  HttpResponse('ok')
+            response['Access-Control-Allow-Origin'] = '*'
+            return response
+        response =  HttpResponse('None')
+        response['Access-Control-Allow-Origin'] = '*'
+        return response
     else:
         form = OrderForm()
         form_dict = {
@@ -145,13 +173,17 @@ def make_order(request):
         }
         return render(request, 'tea/order_form.html', form_dict)
 
+
 @login_required
 def user_orders(request):
 
     user = request.user
     orders = user.order_set.all()
     data = serializers.serialize('json', orders)
-    return HttpResponse(data)
+
+    response =  HttpResponse(data)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
 
 
 
