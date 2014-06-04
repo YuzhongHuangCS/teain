@@ -40,70 +40,27 @@ teaControllers.controller('loginController', ['$scope', '$http',
 teaControllers.controller('flowController', ['$scope', 'tshirt',
     function($scope, tshirt) {
 
-        /*function loadPage(pageID) {
+        function loadPage(pageID) {
             window.pages = pageID;
             var container = document.querySelector('#flow');
             var block = document.createElement('div')
             block.setAttribute('class', 'block');
-            block.setAttribute('ng-repeat', 'cloth in clothes');
+            block.setAttribute('ng-repeat', 'cloth in clothes1');
             block.setAttribute('ng-include', "'partials/tea-flow-block.html'");
             container.appendChild(block);
-            setTimeout(function() {
-                $scope.clothes = tshirt.flow({
-                    start: 1,
-                    limit: 6
-                });
-                $scope.$apply();
-            }, 1000);
+
+            $scope.clothes1 = tshirt.flow({
+                start: 1,
+                limit: 6
+            });
+            $scope.$watch("clothes1", function() {
+                console.log("Changed an input");
+            }, true)
+            console.log($scope.clothes1);
+            $scope.$apply;
         }
-        loadPage(1);*/
-
-        function loadPage(pageID) {
-            switch (pageID) {
-                case 1:
-                    $scope.clothes1 = tshirt.flow({
-                        start: pageID * 6 - 5,
-                        limit: 6
-                    });
-                    break;
-
-                case 2:
-                    $scope.clothes2 = tshirt.flow({
-                        start: pageID * 6 - 5,
-                        limit: 6
-                    });
-                    break;
-
-                case 3:
-                    $scope.clothes3 = tshirt.flow({
-                        start: pageID * 6 - 5,
-                        limit: 6
-                    });
-                    break;
-
-                case 4:
-                    $scope.clothes4 = tshirt.flow({
-                        start: pageID * 6 - 5,
-                        limit: 6
-                    });
-                    break;
-
-                case 5:
-                    $scope.clothes5 = tshirt.flow({
-                        start: pageID * 6 - 5,
-                        limit: 6
-                    });
-                    break;
-
-                case 6:
-                    $scope.clothes6 = tshirt.flow({
-                        start: pageID * 6 - 5,
-                        limit: 6
-                    });
-                    break;
-            }
-
-        }
+        loadPage(1);
+        /*
         window.pages = 1;
         loadPage(window.pages);
         window.onscroll = function(event) {
@@ -114,6 +71,6 @@ teaControllers.controller('flowController', ['$scope', 'tshirt',
                 }
 
             }
-        }
+        }*/
     }
 ]);
