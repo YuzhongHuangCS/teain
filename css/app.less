@@ -6,6 +6,7 @@
  @wineRed: #21D081;
  @blue: #588CC7;
  @buttonBlue: #529ECC;
+ @lightgreen: #B7D0C5;
  .font-hei {
     font-family: ~'"Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "Hiragino Sans GB", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif';
 }
@@ -53,6 +54,10 @@ nav {
         border-bottom: 0.35rem solid transparent;
         cursor: pointer;
         &:hover {
+            background-color: @dark;
+            border-bottom: 0.35rem solid #21D081;
+        }
+        &.selected {
             background-color: @dark;
             border-bottom: 0.35rem solid #21D081;
         }
@@ -281,9 +286,13 @@ progress::-moz-progress-bar {
                         padding: 0.25rem 1rem;
                         transition: all 0.5s;
                         cursor: pointer;
+                        border: solid 2px transparent;
                         &:hover {
                             color: #FFF;
-                            background-color: #000;
+                            background-color: @green;
+                        }
+                        &.selected {
+                            border: solid 2px @green;
                         }
                     }
                 }
@@ -344,9 +353,49 @@ progress::-moz-progress-bar {
         }
     }
 }
+#controlBar {
+    margin: 6rem auto 0;
+    width: calc(80% + 2.5rem);
+    p#tip {
+        width: 6rem;
+        margin-left: 4rem;
+        font-size: 1.8rem;
+        padding: 0 0.6rem 0.25rem;
+        text-align: center;
+        margin-bottom: 0;
+        display: inline-block;
+    }
+    p#option {
+        display: inline-block;
+        vertical-align: baseline;
+        font-size: 1.25rem;
+        margin-bottom: 0;
+        span {
+            margin: 0 1.5rem 0 0;
+            padding: 0.5rem 0.8rem 0.2rem;
+            cursor: pointer;
+            border-bottom: 0.4rem solid transparent;
+            transition: all 0.5s;
+            border-radius: 0.25rem 0.25rem 0 0;
+            &:hover {
+                background-color: @lightgreen;
+                border-bottom: 0.4rem solid @green;
+            }
+            &.selected {
+                border-bottom: 0.4rem solid @green;
+            }
+        }
+    }
+    .line {
+        margin-top: 0;
+        height: 3px;
+        color: @green;
+        background-color: @green;
+    }
+}
 #flow {
     width: 80%;
-    margin: 6rem auto;
+    margin: 2rem auto;
     padding: 1.5rem 1rem;
     background-color: #FFF;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);

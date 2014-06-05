@@ -1,5 +1,14 @@
+<div id="controlBar">
+    <p id="tip">排序/</p>
+    <p id="option">
+        <span ng-click="orderProp = 'fields.end_date'; changeStroke($event)" class="selected">日期</span>
+        <span ng-click="orderProp = 'fields.price'; changeStroke($event)">价格</span>
+        <span ng-click="orderProp = 'fields.get'; changeStroke($event)">支持数</span>
+    </p>
+    <div class="line"></div>
+</div>
 <div id="flow">
-    <div class="item" ng-repeat="cloth in clothes">
+    <div class="item" ng-repeat="cloth in clothes | orderBy: orderProp">
         <a href="#/item/{{cloth.pk}}">
             <div class="imgWrapper">
                 <img ng-src={{cloth.fields.img_src}}>

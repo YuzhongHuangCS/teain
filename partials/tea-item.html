@@ -17,7 +17,7 @@
             </div>
             <div class="sizes">尺寸:
                 <ul>
-                    <li ng-repeat="size in sizes">{{size.fields.size}}</li>
+                    <li ng-repeat="size in sizes" ng-click="changeSize(size, $event)">{{size.fields.size}}</li>
                 </ul>
             </div>
             <p class="content">详细介绍:

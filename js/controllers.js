@@ -7,6 +7,9 @@ var baseurl = 'http://218.244.131.160:8000';
 
 teaControllers.controller('indexController', ['$scope', '$http',
     function($scope, $http) {
+        var total = document.querySelectorAll('.entry');
+        angular.element(total).removeClass('selected');
+
         var path = baseurl + '/api/get_cloth_list/1/6/';
         $http.get(path).success(function(data) {
             for (var i = data.length - 1; i >= 0; i--) {
@@ -17,8 +20,11 @@ teaControllers.controller('indexController', ['$scope', '$http',
     }
 ]);
 
-teaControllers.controller('detailController', ['$scope', '$routeParams', '$http',
+teaControllers.controller('detailController', ['$scope', '$http',
     function($scope, $routeParams, $http) {
+        var total = document.querySelectorAll('.entry');
+        angular.element(total).removeClass('selected');
+
         //init functions
         var path = baseurl + '/api/get_cloth/' + $routeParams.itemID + '/';
         $http.get(path).success(function(data) {
@@ -56,10 +62,9 @@ teaControllers.controller('detailController', ['$scope', '$routeParams', '$http'
         //interact functions
         $scope.changeImg = function(img, $event) {
             var imgNodes = document.querySelectorAll('.imgs img')
-            for (var i = imgNodes.length - 1; i >= 0; i--) {
-                imgNodes[i].className = '';
-            };
-            $event.target.className = 'selected';
+            angular.element(imgNodes).removeClass('selected');
+            angular.element($event.target).addClass('selected');
+            //$event.target.className = 'selected';
             for (var i = window.imgs.length - 1; i >= 0; i--) {
                 if (window.imgs[i].pk === img.pk) {
                     $scope.cloth.fields.img_src = window.imgs[i].fields.img_src;
@@ -67,11 +72,20 @@ teaControllers.controller('detailController', ['$scope', '$routeParams', '$http'
                 }
             };
         }
+        $scope.changeSize = function(size, $event) {
+            var sizeNodes = document.querySelectorAll('.sizes li');
+            //console.log(sizeNodes);
+            angular.element(sizeNodes).removeClass('selected');
+            angular.element($event.target).addClass('selected');
+        }
     }
 ]);
 
 teaControllers.controller('loginController', ['$scope', '$http',
     function($scope, $http) {
+        var total = document.querySelectorAll('.entry');
+        angular.element(total).removeClass('selected');
+
         $scope.register = function() {
             var send = 'http://2.teeshirt.sinaapp.com/accounts/register?id=' + $scope.info.id + '&password=' + $scope.info.password + '&email=' + $scope.info.email;
             $http.get(send).success(function(data) {
@@ -88,6 +102,12 @@ teaControllers.controller('loginController', ['$scope', '$http',
 
 teaControllers.controller('flowController', ['$scope', '$http',
     function($scope, $http) {
+        var total = document.querySelectorAll('.entry');
+        angular.element(total).removeClass('selected');
+        var current = document.querySelector('#entry');
+        angular.element(current).addClass('selected');
+
+        $scope.orderProp = 'fields.end_date';
         var pageID = 1;
         loadPage();
 
@@ -105,9 +125,17 @@ teaControllers.controller('flowController', ['$scope', '$http',
 
         window.onscroll = function(event) {
             //console.log((pageID-1) * window.innerHeight - window.scrollY);
-            if (((pageID-1) * window.innerHeight + pageID*25 - window.scrollY) < 50) {
+            if (((pageID - 1) * window.innerHeight + pageID * 25 - window.scrollY) < 50) {
                 loadPage();
             }
+        }
+
+        //interact functions
+        $scope.changeStroke = function($event) {
+            var orderNodes = document.querySelectorAll('#option span');
+            angular.element(orderNodes).removeClass('selected');
+            angular.element($event.target).addClass('selected');
+            console.log()
         }
     }
 ]);
