@@ -1,5 +1,47 @@
 'use strict';
 
+/* js wirte for teain
+ * design and code by Yuzo
+ */
+
+/* App Module */
+
+var teaApp = angular.module('tea', [
+    'ngRoute',
+    'ngAnimate',
+    'teaControllers'
+]);
+
+teaApp.config(['$routeProvider',
+    function($routeProvider) {
+        $routeProvider.
+        when('/', {
+            templateUrl: 'partials/tea-index.html',
+            controller: 'indexController'
+        }).
+        when('/item/:itemID', {
+            templateUrl: 'partials/tea-item.html',
+            controller: 'detailController'
+        }).
+        when('/login', {
+            templateUrl: 'partials/tea-login.html',
+            controller: 'loginController'
+        }).
+        when('/flow', {
+            templateUrl: 'partials/tea-flow.html',
+            controller: 'flowController'
+        }).
+        when('/raise', {
+            templateUrl: 'partials/tea-raise.html',
+            controller: 'raiseController'
+        }).
+        otherwise({
+            redirectTo: '/'
+        });
+    }
+]);
+
+
 /* Controllers */
 
 var teaControllers = angular.module('teaControllers', []);
@@ -143,6 +185,93 @@ teaControllers.controller('flowController', ['$scope', '$http',
             var flagNodes = document.querySelectorAll('.reverse-flag');
             angular.element(flagNodes).removeClass('selected');
             angular.element($event.target).addClass('selected');
+        }
+    }
+]);
+
+teaControllers.controller('raiseController', ['$scope', '$http',
+    function($scope, $http) {
+        var total = document.querySelectorAll('.entry');
+        angular.element(total).removeClass('selected');
+        var current = document.querySelector('#raise');
+        angular.element(current).addClass('selected');
+
+        //bind clicki
+        var img = document.querySelector('#preview');
+        angular.element(img).on('click', function(event) {
+            //console.log(event);
+            var clickEvent = document.createEvent("MouseEvents");
+            clickEvent.initEvent("click", true, true);
+            document.querySelector('#raiseFile').dispatchEvent(clickEvent);
+        });
+
+        //preview function
+        window.previewImage = function previewImage(file) {
+            //console.log(file.files.item(0));
+            if (file.files.item(0).size > 10485760) {
+                alert('这个图有点大。。。');
+                return false;
+            }
+            switch (file.files.item(0).type) {
+                case 'image/pjpeg':
+                    ;
+                case 'image/jpeg':
+                    ;
+                case 'image/png':
+                    ;
+                case 'image/x-png':
+                    ;
+                case 'image/gif':
+                    break;
+                default:
+                    alert('这个是图吗。。。');
+                    return false;
+            }
+            var MAXWIDTH = 128;
+            var MAXHEIGHT = 128;
+            var div = document.querySelector('#preview');
+
+            div.innerHTML = '<img id=imghead>';
+            var img = document.querySelector('#imghead');
+            img.onload = function() {
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width = rect.width;
+                img.height = rect.height;
+                //img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top + 'px';
+            }
+            var reader = new FileReader();
+            reader.onload = function(evt) {
+                img.src = evt.target.result;
+            }
+            reader.readAsDataURL(file.files[0]);
+        }
+
+        function clacImgZoomParam(maxWidth, maxHeight, width, height) {
+            var param = {
+                top: 0,
+                left: 0,
+                width: width,
+                height: height
+            };
+            var rateWidth, rateHeight;
+
+            if (width > maxWidth || height > maxHeight) {
+                rateWidth = width / maxWidth;
+                rateHeight = height / maxHeight;
+
+                if (rateWidth > rateHeight) {
+                    param.width = maxWidth;
+                    param.height = Math.round(height / rateWidth);
+                } else {
+                    param.width = Math.round(width / rateHeight);
+                    param.height = maxHeight;
+                }
+            }
+
+            param.left = Math.round((maxWidth - param.width) / 2);
+            param.top = Math.round((maxHeight - param.height) / 2);
+            return param;
         }
     }
 ]);
