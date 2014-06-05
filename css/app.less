@@ -222,7 +222,7 @@ progress::-moz-progress-bar {
     animation: animate-stripes 5s linear infinite;
 }
 #item {
-    #exhibit {
+    #info {
         margin: 6rem auto 0;
         width: 80%;
         padding: 2rem;
@@ -252,7 +252,7 @@ progress::-moz-progress-bar {
                         width: 4rem;
                         padding: 0.5rem 0.5rem;
                         border: solid 2px transparent;
-                        &.selected{
+                        &.selected {
                             border: solid 2px @green;
                         }
                     }
@@ -279,6 +279,14 @@ progress::-moz-progress-bar {
                     float: right;
                 }
             }
+        }
+    }
+    #desc-imgs {
+        margin: 2rem auto;
+        width: calc(80% + 4.5rem);
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
+        img {
+            width: 100%;
         }
     }
 }
@@ -420,14 +428,6 @@ footer {
         opacity: 1;
     }
 }
-@-moz-keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
 @-webkit-keyframes fade-in {
     from {
         opacity: 0;
@@ -437,14 +437,6 @@ footer {
     }
 }
 @keyframes fade-out {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-@-moz-keyframes fade-out {
     from {
         opacity: 1;
     }

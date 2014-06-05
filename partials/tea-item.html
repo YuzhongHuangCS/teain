@@ -1,5 +1,5 @@
 <div id="item" ng-model="cloth">
-    <div id="exhibit">
+    <div id="info">
         <div class="imgWrapper">
             <img ng-src={{cloth.fields.img_src}}>
         </div>
@@ -11,7 +11,7 @@
             <div class="imgs">系列:
                 <ul>
                     <li ng-repeat="img in imgs">
-                        <img ng-click="changeImg(img, $event)" ng-src={{img.fields.img_src}}/>
+                        <img ng-click="changeImg(img, $event)" ng-src={{img.fields.img_src}} />
                     </li>
                 </ul>
             </div>
@@ -27,5 +27,8 @@
             </p>
             <progress id="progressBar" value={{cloth.fields.get}} max={{cloth.fields.need}}></progress>
         </div>
+    </div>
+    <div id="desc-imgs">
+        <img class="desc-imgs-wrapper" ng-repeat="desc in descs" ng-src={{desc.fields.img_src}} />
     </div>
 </div>

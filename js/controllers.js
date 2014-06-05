@@ -19,34 +19,49 @@ teaControllers.controller('indexController', ['$scope', '$http',
 
 teaControllers.controller('detailController', ['$scope', '$routeParams', '$http',
     function($scope, $routeParams, $http) {
+        //init functions
         var path = baseurl + '/api/get_cloth/' + $routeParams.itemID + '/';
         $http.get(path).success(function(data) {
             data[0].fields.img_src = baseurl + '/media/' + data[0].fields.img_src;
             $scope.cloth = data[0];
         });
 
-        path = baseurl + '/api/get_cloth_sizes/' + $routeParams.itemID + '/';
+        var path = baseurl + '/api/get_cloth_sizes/' + $routeParams.itemID + '/';
         $http.get(path).success(function(data) {
             $scope.sizes = data;
         });
 
-        path = baseurl + '/api/get_cloth_imgs/' + $routeParams.itemID + '/';
+        var path = baseurl + '/api/get_cloth_imgs/' + $routeParams.itemID + '/';
         $http.get(path).success(function(data) {
             for (var i = data.length - 1; i >= 0; i--) {
                 data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
             };
             $scope.imgs = data;
             window.imgs = data;
+            angular.element(document).ready(function() {
+                var clickEvent = document.createEvent("MouseEvents");
+                clickEvent.initEvent("click", true, true);
+                document.querySelector('.imgs img').dispatchEvent(clickEvent);
+            });
         });
 
-        $scope.changeImg = function(img, $event){
-            var imgs = document.querySelectorAll('.imgs img')
-            for (var i = imgs.length - 1; i >= 0; i--) {
-                imgs[i].className = '';
+        var path = baseurl + '/api/get_cloth_descs/' + $routeParams.itemID + '/';
+        $http.get(path).success(function(data) {
+            for (var i = data.length - 1; i >= 0; i--) {
+                data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
+            };
+            $scope.descs = data;
+        });
+
+        //interact functions
+        $scope.changeImg = function(img, $event) {
+            var imgNodes = document.querySelectorAll('.imgs img')
+            for (var i = imgNodes.length - 1; i >= 0; i--) {
+                imgNodes[i].className = '';
             };
             $event.target.className = 'selected';
             for (var i = window.imgs.length - 1; i >= 0; i--) {
-                if(window.imgs[i].pk === img.pk){
+                if (window.imgs[i].pk === img.pk) {
                     $scope.cloth.fields.img_src = window.imgs[i].fields.img_src;
                     break;
                 }
