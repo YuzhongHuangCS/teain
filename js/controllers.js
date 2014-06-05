@@ -3,21 +3,55 @@
 /* Controllers */
 
 var teaControllers = angular.module('teaControllers', []);
+var baseurl = 'http://218.244.131.160:8000';
 
-teaControllers.controller('indexController', ['$scope', 'tshirt',
-    function($scope, tshirt) {
-        $scope.clothes = tshirt.index();
+teaControllers.controller('indexController', ['$scope', '$http',
+    function($scope, $http) {
+        var path = baseurl + '/api/get_cloth_list/1/6/';
+        $http.get(path).success(function(data) {
+            for (var i = data.length - 1; i >= 0; i--) {
+                data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
+            };
+            $scope.clothes = data;
+        });
     }
 ]);
 
-teaControllers.controller('detailController', ['$scope', '$routeParams', 'tshirt',
-    function($scope, $routeParams, tshirt) {
-        $scope.clothes = tshirt.detail({
-            start: $routeParams.itemID
+teaControllers.controller('detailController', ['$scope', '$routeParams', '$http',
+    function($scope, $routeParams, $http) {
+        var path = baseurl + '/api/get_cloth/' + $routeParams.itemID + '/';
+        $http.get(path).success(function(data) {
+            data[0].fields.img_src = baseurl + '/media/' + data[0].fields.img_src;
+            $scope.cloth = data[0];
         });
-        $scope.sizes = tshirt.size({
-            start: $routeParams.itemID
+
+        path = baseurl + '/api/get_cloth_sizes/' + $routeParams.itemID + '/';
+        $http.get(path).success(function(data) {
+            $scope.sizes = data;
         });
+
+        path = baseurl + '/api/get_cloth_imgs/' + $routeParams.itemID + '/';
+        $http.get(path).success(function(data) {
+            for (var i = data.length - 1; i >= 0; i--) {
+                data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
+            };
+            $scope.imgs = data;
+            window.imgs = data;
+        });
+
+        $scope.changeImg = function(img, $event){
+            var imgs = document.querySelectorAll('.imgs img')
+            for (var i = imgs.length - 1; i >= 0; i--) {
+                imgs[i].className = '';
+            };
+            $event.target.className = 'selected';
+            for (var i = window.imgs.length - 1; i >= 0; i--) {
+                if(window.imgs[i].pk === img.pk){
+                    $scope.cloth.fields.img_src = window.imgs[i].fields.img_src;
+                    break;
+                }
+            };
+        }
     }
 ]);
 
@@ -37,7 +71,7 @@ teaControllers.controller('loginController', ['$scope', '$http',
     }
 ]);
 
-teaControllers.controller('flowController', ['$scope', 'tshirt',
+teaControllers.controller('flowController', ['$scope', 'index',
     function($scope, tshirt) {
 
         function loadPage(pageID) {

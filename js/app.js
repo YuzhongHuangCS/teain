@@ -9,9 +9,7 @@
 var teaApp = angular.module('tea', [
     'ngRoute',
     'ngAnimate',
-    'teaControllers',
-    'tshirt',
-    'account'
+    'teaControllers'
 ]);
 
 teaApp.config(['$routeProvider',
