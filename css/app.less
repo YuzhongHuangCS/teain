@@ -6,8 +6,22 @@
  @wineRed: #21D081;
  @blue: #588CC7;
  @buttonBlue: #529ECC;
- body {
-    font-family:"Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "Hiragino Sans GB", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "Microsoft YaHei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+ .font-hei {
+    font-family: ~'"Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "Hiragino Sans GB", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif';
+}
+.font-kai {
+    font-family: ~'Baskerville, Georgia, "Liberation Serif", "Kaiti SC", STKaiti, "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, TW\-Kai, serif';
+}
+.font-song {
+    font-family: ~'Georgia, "Nimbus Roman No9 L", "Songti SC", STSong, "AR PL SungtiL GB", NSimSun, SimSun, TW\-Sung, "WenQuanYi Bitmap Song", "AR PL UMing CN", "AR PL UMing HK", "AR PL UMing TW", "AR PL UMing TW MBE", serif';
+}
+.font-fang-song {
+    font-family: ~'Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, CWTEX\-F, serif';
+}
+.font-ming {
+    font-family: ~'Georgia, "Nimbus Roman No9 L", "AR PL UMing CN", "AR PL UMing HK", "AR PL UMing TW", "AR PL UMing TW MBE", PMingLiU, MingLiU, serif';
+}
+body {
     background-color: @background;
 }
 nav {
@@ -108,7 +122,7 @@ nav {
             width: 9rem;
             margin-left: 4rem;
             font-size: 1.8rem;
-            padding: 0 0.6rem;
+            padding: 0 0.6rem 0.25rem;
             text-align: center;
             border-bottom: 5px solid @green;
             margin-bottom: 0;
@@ -336,7 +350,7 @@ progress::-moz-progress-bar {
     padding: 1.5rem 1rem;
     background-color: #FFF;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
-    .block {
+    .item {
         display: inline-block;
         width: 33%;
         -moz-box-sizing: border-box;
@@ -405,7 +419,25 @@ progress::-moz-progress-bar {
     }
 }
 footer {
-    height: 30vh;
+    background-color: @green;
+    .big {
+        padding-top: 4rem;
+        text-align: center;
+        font-size: 5rem;
+        color: #FFF;
+        cursor: pointer;
+        margin-bottom: 0;
+    }
+    .words {
+        padding: 0rem 10%;
+        text-align: right;
+        color: #FFF;
+        p:last-child {
+            padding-bottom: 1rem;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+    }
 }
 //animate;
  .view-frame.ng-enter {

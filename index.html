@@ -2,30 +2,34 @@
 <html ng-app="tea">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="renderer" content="webkit">
-    <title>音·Teain</title>
-    <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
-    <link rel="stylesheet" href="css/app.css">
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<title>音·Teain</title>
+	<link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
+	<link rel="stylesheet" href="css/app.css">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/controllers.js"></script>
 </head>
 
-<body>
-    <nav>
-        <a href="#/"><span id="logo"><img src="img/logo.png"></span></a>
-        <a href="#/flow"><span class="entry" id="discovery">发现</span></a>
-        <a href="#/flow"><span class="entry" id="category">分类</span></a>
-        <span class="entry" id="start">现在开始</span>
-        <a href="#/login"><span class="entry" id="login">登录/注册</span></a>
-    </nav>
-    <div class="view-frame" ng-view></div>
-    <footer>
-    </footer>
+<body class="font-hei">
+	<nav>
+		<a href="#/"><span id="logo"><img src="img/logo.png"></span></a>
+		<a href="#/flow"><span class="entry" id="discovery">发现</span></a>
+		<a href="#/flow"><span class="entry" id="category">分类</span></a>
+		<span class="entry" id="start">现在开始</span>
+		<a href="#/login"><span class="entry" id="login">登录/注册</span></a>
+	</nav>
+	<div class="view-frame" ng-view></div>
+	<footer>
+		<p class="big font-song">@Tee-Shirt</p>
+		<div class="words">
+			<p>Copyright©2014 Tee-Shirt</p>
+			<p>关注我们: &nbsp;新浪微博/QQ空间/QQ群</p>
+		</div>
+	</footer>
 </body>
-
 </html>

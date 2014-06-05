@@ -86,40 +86,28 @@ teaControllers.controller('loginController', ['$scope', '$http',
     }
 ]);
 
-teaControllers.controller('flowController', ['$scope', 'index',
-    function($scope, tshirt) {
+teaControllers.controller('flowController', ['$scope', '$http',
+    function($scope, $http) {
+        var pageID = 1;
+        loadPage();
 
-        function loadPage(pageID) {
-            window.pages = pageID;
-            var container = document.querySelector('#flow');
-            var block = document.createElement('div')
-            block.setAttribute('class', 'block');
-            block.setAttribute('ng-repeat', 'cloth in clothes1');
-            block.setAttribute('ng-include', "'partials/tea-flow-block.html'");
-            container.appendChild(block);
-
-            $scope.clothes1 = tshirt.flow({
-                start: 1,
-                limit: 6
+        function loadPage() {
+            var path = baseurl + '/api/get_cloth_list/1/' + (6 * pageID) + '/';
+            //console.log(path);
+            $http.get(path).success(function(data) {
+                for (var i = data.length - 1; i >= 0; i--) {
+                    data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
+                };
+                $scope.clothes = data;
+                pageID++;
             });
-            $scope.$watch("clothes1", function() {
-                console.log("Changed an input");
-            }, true)
-            console.log($scope.clothes1);
-            $scope.$apply;
         }
-        loadPage(1);
-        /*
-        window.pages = 1;
-        loadPage(window.pages);
-        window.onscroll = function(event) {
-            if ((window.pages * window.innerHeight - window.scrollY) < 0) {
-                //alert(window.pages);
-                if (window.pages <= 7) {
-                    loadPage(++window.pages)
-                }
 
+        window.onscroll = function(event) {
+            //console.log((pageID-1) * window.innerHeight - window.scrollY);
+            if (((pageID-1) * window.innerHeight + pageID*25 - window.scrollY) < 50) {
+                loadPage();
             }
-        }*/
+        }
     }
 ]);
