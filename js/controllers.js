@@ -20,13 +20,14 @@ teaControllers.controller('indexController', ['$scope', '$http',
     }
 ]);
 
-teaControllers.controller('detailController', ['$scope', '$http',
+teaControllers.controller('detailController', ['$scope', '$routeParams', '$http',
     function($scope, $routeParams, $http) {
         var total = document.querySelectorAll('.entry');
         angular.element(total).removeClass('selected');
 
         //init functions
         var path = baseurl + '/api/get_cloth/' + $routeParams.itemID + '/';
+        console.log(path);
         $http.get(path).success(function(data) {
             data[0].fields.img_src = baseurl + '/media/' + data[0].fields.img_src;
             $scope.cloth = data[0];
@@ -108,34 +109,40 @@ teaControllers.controller('flowController', ['$scope', '$http',
         angular.element(current).addClass('selected');
 
         $scope.orderProp = 'fields.end_date';
+        $scope.reverse = 1;
+
+        $scope.quantity = 6;
+        //$scope.$watch('quantity');
+
+        var path = baseurl + '/api/get_cloth_list/1/100/';
+
+        $http.get(path).success(function(data) {
+            for (var i = data.length - 1; i >= 0; i--) {
+                data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
+            };
+            $scope.clothes = data;
+        });
+
         var pageID = 1;
-        loadPage();
-
-        function loadPage() {
-            var path = baseurl + '/api/get_cloth_list/1/' + (6 * pageID) + '/';
-            //console.log(path);
-            $http.get(path).success(function(data) {
-                for (var i = data.length - 1; i >= 0; i--) {
-                    data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
-                };
-                $scope.clothes = data;
-                pageID++;
-            });
-        }
-
         window.onscroll = function(event) {
-            //console.log((pageID-1) * window.innerHeight - window.scrollY);
-            if (((pageID - 1) * window.innerHeight + pageID * 25 - window.scrollY) < 50) {
-                loadPage();
+            //console.log(pageID * window.innerHeight - window.scrollY);
+            if ((pageID * window.innerHeight + pageID * 25 - window.scrollY) < 25) {
+                $scope.quantity = (++pageID) * 6;
+                //force refresh data!!
+                $scope.$digest();
             }
         }
 
         //interact functions
         $scope.changeStroke = function($event) {
-            var orderNodes = document.querySelectorAll('#option span');
+            var orderNodes = document.querySelectorAll('.order-selector');
             angular.element(orderNodes).removeClass('selected');
             angular.element($event.target).addClass('selected');
-            console.log()
+        }
+        $scope.changeFlag = function($event) {
+            var flagNodes = document.querySelectorAll('.reverse-flag');
+            angular.element(flagNodes).removeClass('selected');
+            angular.element($event.target).addClass('selected');
         }
     }
 ]);

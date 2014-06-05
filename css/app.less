@@ -371,18 +371,28 @@ progress::-moz-progress-bar {
         font-size: 1.25rem;
         margin-bottom: 0;
         span {
-            margin: 0 1.5rem 0 0;
-            padding: 0.5rem 0.8rem 0.2rem;
             cursor: pointer;
-            border-bottom: 0.4rem solid transparent;
             transition: all 0.5s;
             border-radius: 0.25rem 0.25rem 0 0;
             &:hover {
                 background-color: @lightgreen;
-                border-bottom: 0.4rem solid @green;
             }
-            &.selected {
-                border-bottom: 0.4rem solid @green;
+            &.order-selector {
+                margin: 0 1.5rem 0 0;
+                padding: 0.5rem 0.8rem 0.25rem;
+                border-bottom: 0.4rem solid transparent;
+                &.selected {
+                    border-bottom: 0.4rem solid @green;
+                }
+            }
+            &.reverse-flag {
+                font-size: 1rem;
+                margin: 0;
+                padding: 0.3rem 0.6rem;
+                border-radius: 0.25rem;
+                &.selected {
+                    background-color: @lightgreen;
+                }
             }
         }
     }
