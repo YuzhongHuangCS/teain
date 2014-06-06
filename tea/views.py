@@ -12,6 +12,13 @@ from tea.forms import RegisterForm, OrderForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
+def csrf_token(request):
+
+    response = render(request, 'tea/csrftoken.html', None)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
+
 def index(request):
 
     return render(request, 'tea/index.html', None)
