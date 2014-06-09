@@ -40,6 +40,10 @@ teaApp.config(['$routeProvider',
             templateUrl: '/static/tea/partials/tea-raise.html',
             controller: 'raiseController'
         }).
+        when('/ucenter', {
+            templateUrl: '/static/tea/partials/tea-ucenter.html',
+            controller: 'ucenterController'
+        }).
         otherwise({
             redirectTo: '/'
         });
@@ -460,5 +464,18 @@ teaControllers.controller('raiseController', ['$scope', '$http',
             param.top = Math.round((maxHeight - param.height) / 2);
             return param;
         }
+    }
+]);
+
+teaControllers.controller('ucenterController', ['$scope', '$http',
+    function($scope, $http) {
+        var current = document.querySelector('#ucenter');
+        angular.element(current).addClass('selected');
+
+        var path = '/api/get_user_orders/';
+        
+        $http.get(path).success(function(data) {
+            $scope.orders = data;
+        });
     }
 ]);
