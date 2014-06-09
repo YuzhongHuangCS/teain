@@ -15,8 +15,6 @@ urlpatterns = patterns('',
     url(r'^api/get_cloth_descs/(\d+)/$', views.get_cloth_desc, name='cloth_descs'),
     url(r'^api/get_cloth_sizes/(\d+)/$', views.get_cloth_sizes, name='cloth_sizes'),
 
-    url(r'^api/csrftoken/$', views.csrf_token, name='csrftoken'),
-
     # user log
     # url(r'^accounts/register/$', views.register),
 
