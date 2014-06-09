@@ -1,23 +1,30 @@
+<div id="controlBar">
+    <p id="tip">排序/</p>
+    <p id="option">
+        <span class="order-selector selected" ng-click="orderProp = 'fields.end_date'; changeStroke($event)">日期</span>
+        <span class="order-selector" ng-click="orderProp = 'fields.price'; changeStroke($event)">价格</span>
+        <span class="order-selector" ng-click="orderProp = 'fields.get'; changeStroke($event)">支持数</span>
+        <span class="reverse-flag  selected" ng-click="reverse = 1; changeFlag($event)">降序</span>
+        <span class="reverse-flag" ng-click="reverse = 0; changeFlag($event)">升序</span>
+    </p>
+    <div class="line"></div>
+</div>
 <div id="flow">
-    <div id="popular">
-        <div id="gallery">
-            <div class="item" ng-repeat="cloth in clothes">
-                <a href="#/item/{{cloth.pk}}">
-                    <div class="imgWrapper">
-                        <img ng-src={{cloth.fields.img_src}}>
-                        <div class="tea-it">Tea-it</div>
-                    </div>
-                </a>
-                <div class="text">
-                    <p class="title">{{cloth.fields.title}}
-                        <span class="author">| {{cloth.fields.author}}</span>
-                    </p>
-                    <p class="progressText">众筹进度
-                        <span class="num">已筹集{{cloth.fields.get}}/目标{{cloth.fields.need}}</span>
-                    </p>
-                    <progress id="progressBar" value={{cloth.fields.get}} max={{cloth.fields.need}}></progress>
-                </div>
+    <div class="item" ng-repeat="cloth in clothes | orderBy: orderProp: reverse | limitTo: quantity">
+        <a href="#/item/{{cloth.pk}}">
+            <div class="imgWrapper">
+                <img ng-src={{cloth.fields.img_src}}>
+                <div class="tea-it">Tea-it</div>
             </div>
+        </a>
+        <div class="text">
+            <p class="title">{{cloth.fields.title}}
+                <span class="author">| {{cloth.fields.author}}</span>
+            </p>
+            <p class="progressText">众筹进度
+                <span class="num">已筹集{{cloth.fields.get}}/目标{{cloth.fields.need}}</span>
+            </p>
+            <progress id="progressBar" value={{cloth.fields.get}} max={{cloth.fields.need}}></progress>
         </div>
     </div>
 </div>
