@@ -7,6 +7,7 @@
  @blue: #588CC7;
  @buttonBlue: #529ECC;
  @lightgreen: #B7D0C5;
+ @orange: #FF4400;
  .font-hei {
     font-family: ~'"Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "Hiragino Sans GB", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif';
 }
@@ -299,8 +300,23 @@ progress::-moz-progress-bar {
                 }
             }
             .progressText {
-                .num {
+                .textNum {
                     float: right;
+                }
+            }
+            #buy {
+                #num {
+                    margin-left: 0.5rem;
+                    padding-left: 0.25rem;
+                    width: 5rem;
+                }
+                #buyButton{
+                    margin-left: 0.5rem;
+                    color: #FFF;
+                    padding: 0.5rem 1rem;
+                    background-color: @orange;
+                    border-radius: 0.3rem;
+                    cursor: pointer;
                 }
             }
         }

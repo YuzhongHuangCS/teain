@@ -88,8 +88,7 @@ teaApp.run(function($rootScope, $cookies) {
     }
     //change text of the login button
     if ($cookies.username) {
-        var target;
-        target = document.querySelector('#toRegister');
+        var target = document.querySelector('#toRegister');
         angular.element(target).text($cookies.username);
     }
     //toRegister function
@@ -127,8 +126,8 @@ teaControllers.controller('indexController', ['$scope', '$http', '$cookies',
     }
 ]);
 
-teaControllers.controller('detailController', ['$scope', '$routeParams', '$http',
-    function($scope, $routeParams, $http) {
+teaControllers.controller('detailController', ['$scope', '$routeParams', '$http', '$cookies',
+    function($scope, $routeParams, $http, $cookies) {
         //init functions
         var path = baseurl + '/api/get_cloth/' + $routeParams.itemID + '/';
         //console.log(path);
@@ -174,6 +173,45 @@ teaControllers.controller('detailController', ['$scope', '$routeParams', '$http'
             //console.log(sizeNodes);
             angular.element(sizeNodes).removeClass('selected');
             angular.element($event.target).addClass('selected');
+        }
+
+        //purchase functions
+        $scope.num = 1;
+        //get csrf
+        var path = baseurl + '/api/make_order/';
+        $http.get(path);
+        //buyButton
+        $scope.buy = function buy(clothID, num) {
+            var postData = {
+                user_id: $cookies.userID,
+                cloth_id: clothID,
+                num: num,
+                csrfmiddlewaretoken: $cookies.csrftoken
+            }
+
+            var config = {
+                method: 'POST',
+                url: path,
+                data: postData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                transformRequest: function(obj) {
+                    var str = [];
+                    for (var p in obj) {
+                        str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+                    }
+                    return str.join('&');
+                }
+            }
+
+            $http(config).success(function(data) {
+                if (data == 'ok') {
+                    myAlert('<span class="icon-ok-sign"></span> 购买成功');
+                } else {
+                    myAlert('<span class="icon-minus-sign"></span> 购买失败');
+                }
+            });
         }
     }
 ]);
@@ -226,6 +264,7 @@ teaControllers.controller('registerController', ['$scope', '$http', '$cookies',
                     $http.get(path).success(function(data) {
                         //console.log(data);
                         $cookies.username = data[0].fields.username;
+                        $cookies.userID = data[0].pk;
                         setTimeout(function() {
                             window.location.href = '/';
                         }, 1000)
@@ -285,6 +324,7 @@ teaControllers.controller('loginController', ['$scope', '$http', '$cookies',
                     $http.get(path).success(function(data) {
                         //console.log(data);
                         $cookies.username = data[0].fields.username;
+                        $cookies.userID = data[0].pk;
                         setTimeout(function() {
                             window.location.href = '/';
                         }, 1000)
