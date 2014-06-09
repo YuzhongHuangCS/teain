@@ -46,7 +46,7 @@ teaApp.config(['$routeProvider',
     }
 ]);
 
-teaApp.run(function($rootScope) {
+teaApp.run(function($rootScope, $cookies) {
     //app range initalize
     window.baseurl = '';
     //stoke update
@@ -64,9 +64,7 @@ teaApp.run(function($rootScope) {
     }
     //myAlert function
     window.myAlert = function myAlert(text) {
-        var target;
-
-        target = document.querySelector('#myAlert');
+        var target = document.querySelector('#myAlert');
         angular.element(target).html(text);
 
         angular.element(target).css('display', 'block');
@@ -74,12 +72,39 @@ teaApp.run(function($rootScope) {
             angular.element(target).css('opacity', '0.9');
         }, 50);
 
-        target.addEventListener('click', function() {
+        function fadeOut() {
             angular.element(target).css('opacity', '0');
             setTimeout(function() {
                 angular.element(target).css('display', 'none');
             }, 800);
-        })
+        };
+
+        setTimeout(function() {
+            fadeOut();
+        }, 3000);
+        target.addEventListener('click', function() {
+            fadeOut();
+        });
+    }
+    //change text of the login button
+    if ($cookies.username) {
+        var target;
+        target = document.querySelector('#toRegister');
+        angular.element(target).text($cookies.username);
+    }
+    //toRegister function
+    window.toRegister = function toRegister() {
+        //console.log($cookies);
+        if ($cookies.username) {
+            if (confirm("退出当前账户？")) {
+                //buggy?
+                //$cookies.username = "";
+                document.cookie = 'username=';
+                window.location.reload();
+            };
+        } else {
+            window.location.href = '#/register';
+        }
     }
 });
 
@@ -87,11 +112,17 @@ teaApp.run(function($rootScope) {
 
 var teaControllers = angular.module('teaControllers', []);
 
-teaControllers.controller('indexController', ['$scope', '$http',
-    function($scope, $http) {
+teaControllers.controller('indexController', ['$scope', '$http', '$cookies',
+    function($scope, $http, $cookies) {
         var path = baseurl + '/api/get_cloth_list/1/6/';
+        //console.log(path);
         $http.get(path).success(function(data) {
             $scope.clothes = addPrefix(data);
+            //control welcome banner
+            if (!$cookies.username) {
+                var target = document.querySelector('#welcome')
+                angular.element(target).css('display', 'block');
+            }
         });
     }
 ]);
@@ -149,7 +180,7 @@ teaControllers.controller('detailController', ['$scope', '$routeParams', '$http'
 
 teaControllers.controller('registerController', ['$scope', '$http', '$cookies',
     function($scope, $http, $cookies) {
-        var current = document.querySelector('#register');
+        var current = document.querySelector('#toRegister');
         angular.element(current).addClass('selected');
 
         //get csrf
@@ -159,12 +190,12 @@ teaControllers.controller('registerController', ['$scope', '$http', '$cookies',
         $scope.checkMust = function checkMust($event) {
             //console.log($event.target);
             var target = angular.element($event.target);
-            if (!target.val()) {
-                target.removeClass('valid');
-                target.addClass('invalid');
-            } else {
+            if (target.val()) {
                 target.removeClass('invalid');
                 target.addClass('valid');
+            } else {
+                target.removeClass('valid');
+                target.addClass('invalid');
             }
         }
 
@@ -191,6 +222,14 @@ teaControllers.controller('registerController', ['$scope', '$http', '$cookies',
             $http(config).success(function(data) {
                 if (data == 'ok') {
                     myAlert('<span class="icon-ok-sign"></span> 注册成功');
+                    var path = baseurl + '/accounts/userinfo/';
+                    $http.get(path).success(function(data) {
+                        //console.log(data);
+                        $cookies.username = data[0].fields.username;
+                        setTimeout(function() {
+                            window.location.href = '/';
+                        }, 1000)
+                    })
                 } else {
                     myAlert('<span class="icon-minus-sign"></span> 注册失败');
                 }
@@ -201,7 +240,7 @@ teaControllers.controller('registerController', ['$scope', '$http', '$cookies',
 
 teaControllers.controller('loginController', ['$scope', '$http', '$cookies',
     function($scope, $http, $cookies) {
-        var current = document.querySelector('#register');
+        var current = document.querySelector('#toRegister');
         angular.element(current).addClass('selected');
 
         //get csrf
@@ -211,12 +250,12 @@ teaControllers.controller('loginController', ['$scope', '$http', '$cookies',
         $scope.checkMust = function checkMust($event) {
             //console.log($event.target);
             var target = angular.element($event.target);
-            if (!target.val()) {
-                target.removeClass('valid');
-                target.addClass('invalid');
-            } else {
+            if (target.val()) {
                 target.removeClass('invalid');
                 target.addClass('valid');
+            } else {
+                target.removeClass('valid');
+                target.addClass('invalid');
             }
         }
 
@@ -242,6 +281,14 @@ teaControllers.controller('loginController', ['$scope', '$http', '$cookies',
             $http(config).success(function(data) {
                 if (data == 'ok') {
                     myAlert('<span class="icon-ok-sign"></span> 登录成功');
+                    var path = baseurl + '/accounts/userinfo/';
+                    $http.get(path).success(function(data) {
+                        //console.log(data);
+                        $cookies.username = data[0].fields.username;
+                        setTimeout(function() {
+                            window.location.href = '/';
+                        }, 1000)
+                    })
                 } else {
                     myAlert('<span class="icon-minus-sign"></span> 登录失败');
                 }

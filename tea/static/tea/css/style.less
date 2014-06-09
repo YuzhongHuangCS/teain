@@ -62,13 +62,14 @@ nav {
             border-bottom: 0.35rem solid #21D081;
         }
     }
-    #register {
+    #toRegister {
         float: right;
         margin-right: 3rem;
     }
 }
 #index {
     #welcome {
+        display: none;
         position: absolute;
         top: 2.5rem;
         width: 80%;
@@ -358,9 +359,13 @@ progress::-moz-progress-bar {
             font-size: 1.5rem;
             line-height: 2.2rem;
             color: #FFF;
-            background-color: @buttonBlue;
+            background-color: @blue;
+            transition: all 0.25s;
+            &:hover {
+                background-color: @buttonBlue;
+            }
         }
-        #toLogin{
+        #toLogin {
             float: right;
             cursor: pointer;
             color: #666;
@@ -414,7 +419,11 @@ progress::-moz-progress-bar {
             font-size: 1.5rem;
             line-height: 2.2rem;
             color: #FFF;
-            background-color: @buttonBlue;
+            background-color: @blue;
+            transition: all 0.25s;
+            &:hover {
+                background-color: @buttonBlue;
+            }
         }
     }
 }
