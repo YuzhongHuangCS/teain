@@ -24,6 +24,10 @@ teaApp.config(['$routeProvider',
             templateUrl: '/static/tea/partials/tea-item.html',
             controller: 'detailController'
         }).
+        when('/register', {
+            templateUrl: '/static/tea/partials/tea-register.html',
+            controller: 'registerController'
+        }).
         when('/login', {
             templateUrl: '/static/tea/partials/tea-login.html',
             controller: 'loginController'
@@ -64,9 +68,9 @@ teaApp.run(function($rootScope) {
 
         target = document.querySelector('#myAlert');
         angular.element(target).html(text);
-        
+
         angular.element(target).css('display', 'block');
-        setTimeout(function(){
+        setTimeout(function() {
             angular.element(target).css('opacity', '0.9');
         }, 50);
 
@@ -143,9 +147,9 @@ teaControllers.controller('detailController', ['$scope', '$routeParams', '$http'
     }
 ]);
 
-teaControllers.controller('loginController', ['$scope', '$http', '$cookies', '$timeout',
-    function($scope, $http, $cookies, $timeout) {
-        var current = document.querySelector('#login');
+teaControllers.controller('registerController', ['$scope', '$http', '$cookies',
+    function($scope, $http, $cookies) {
+        var current = document.querySelector('#register');
         angular.element(current).addClass('selected');
 
         //get csrf
@@ -185,10 +189,61 @@ teaControllers.controller('loginController', ['$scope', '$http', '$cookies', '$t
             }
 
             $http(config).success(function(data) {
-                if(data == 'ok'){
-                    myAlert('注册成功');
-                }else{
-                    myAlert('注册失败');
+                if (data == 'ok') {
+                    myAlert('<span class="icon-ok-sign"></span> 注册成功');
+                } else {
+                    myAlert('<span class="icon-minus-sign"></span> 注册失败');
+                }
+            });
+        }
+    }
+]);
+
+teaControllers.controller('loginController', ['$scope', '$http', '$cookies',
+    function($scope, $http, $cookies) {
+        var current = document.querySelector('#register');
+        angular.element(current).addClass('selected');
+
+        //get csrf
+        var path = baseurl + '/accounts/login/';
+        $http.get(path);
+
+        $scope.checkMust = function checkMust($event) {
+            //console.log($event.target);
+            var target = angular.element($event.target);
+            if (!target.val()) {
+                target.removeClass('valid');
+                target.addClass('invalid');
+            } else {
+                target.removeClass('invalid');
+                target.addClass('valid');
+            }
+        }
+
+        $scope.login = function login() {
+            $scope.info.csrfmiddlewaretoken = $cookies.csrftoken;
+
+            var config = {
+                method: 'POST',
+                url: path,
+                data: $scope.info,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                transformRequest: function(obj) {
+                    var str = [];
+                    for (var p in obj) {
+                        str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+                    }
+                    return str.join('&');
+                }
+            }
+
+            $http(config).success(function(data) {
+                if (data == 'ok') {
+                    myAlert('<span class="icon-ok-sign"></span> 登录成功');
+                } else {
+                    myAlert('<span class="icon-minus-sign"></span> 登录失败');
                 }
             });
         }

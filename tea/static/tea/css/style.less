@@ -62,7 +62,7 @@ nav {
             border-bottom: 0.35rem solid #21D081;
         }
     }
-    #login {
+    #register {
         float: right;
         margin-right: 3rem;
     }
@@ -313,7 +313,63 @@ progress::-moz-progress-bar {
         }
     }
 }
+#register {
+    img {
+        display: block;
+        width: 15%;
+        margin: 6% auto 0;
+    }
+    form {
+        display: block;
+        width: 22%;
+        margin: 1.2rem auto;
+        padding: 0.5rem 1.25rem 2rem;
+        background-color: #FFF;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
+        p {
+            margin: 1.5rem 0 0.25rem 0.2rem;
+            font-size: 1rem;
+            color: #666;
+        }
+        input {
+            color: #666;
+            width: 100%;
+            font-size: 1.2rem;
+            padding: 0.3rem 0;
+            border: 1px solid #ccc;
+            border-radius: 0.2rem;
+            vertical-align: middle;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.075);
+            &:focus {
+                box-shadow: 0 0 3px rgba(57, 246, 242, 0.5);
+                border: 1px solid rgba(57, 246, 242, 0.5);
+            }
+        }
+        input.valid {
+            border: 1px solid rgba(33, 238, 193, 0.5);
+            box-shadow: 0 0 3px rgba(33, 238, 193, 0.5);
+        }
+        input.invalid {
+            border: 1px solid rgba(248, 38, 157, 0.5);
+            box-shadow: 0 0 3px rgba(248, 38, 157, 0.5);
+        }
+        #submit {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            line-height: 2.2rem;
+            color: #FFF;
+            background-color: @buttonBlue;
+        }
+        #toLogin{
+            float: right;
+            cursor: pointer;
+            color: #666;
+            text-decoration: none;
+        }
+    }
+}
 #login {
+    margin-bottom: 15%;
     img {
         display: block;
         width: 15%;
