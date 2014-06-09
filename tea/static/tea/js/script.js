@@ -21,19 +21,19 @@ teaApp.config(['$routeProvider',
             controller: 'indexController'
         }).
         when('/item/:itemID', {
-            templateUrl: 'partials/tea-item.html',
+            templateUrl: '/static/tea/partials/tea-item.html',
             controller: 'detailController'
         }).
         when('/login', {
-            templateUrl: 'partials/tea-login.html',
+            templateUrl: '/static/tea/partials/tea-login.html',
             controller: 'loginController'
         }).
         when('/flow', {
-            templateUrl: 'partials/tea-flow.html',
+            templateUrl: '/static/tea/partials/tea-flow.html',
             controller: 'flowController'
         }).
         when('/raise', {
-            templateUrl: 'partials/tea-raise.html',
+            templateUrl: '/static/tea/partials/tea-raise.html',
             controller: 'raiseController'
         }).
         otherwise({
@@ -44,7 +44,7 @@ teaApp.config(['$routeProvider',
 
 teaApp.run(function($rootScope) {
     //app range initalize
-    window.baseurl = 'http://218.244.131.160:8000';
+    window.baseurl = '';
     //stoke update
     $rootScope.$on('$routeChangeSuccess', function(event, current) {
         //console.log(event, current);
@@ -135,13 +135,9 @@ teaControllers.controller('loginController', ['$scope', '$http', '$cookies', '$t
 
         var path = baseurl + '/accounts/register/';
         console.log(path);
-        $http.get(path).then(function(response) {
-            
-            $timeout(function() {
-                //console.log($cookies)
-                console.log(response);
-            });
-        })
+        $http.get(path).success(function(data) {
+
+        });
     }
 ]);
 
