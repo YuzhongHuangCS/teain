@@ -345,6 +345,14 @@ progress::-moz-progress-bar {
                 border: 1px solid rgba(57, 246, 242, 0.5);
             }
         }
+        input.valid {
+            border: 1px solid rgba(33, 238, 193, 0.5);
+            box-shadow: 0 0 3px rgba(33, 238, 193, 0.5);
+        }
+        input.invalid {
+            border: 1px solid rgba(248, 38, 157, 0.5);
+            box-shadow: 0 0 3px rgba(248, 38, 157, 0.5);
+        }
         #submit {
             margin-top: 2rem;
             font-size: 1.5rem;
@@ -516,17 +524,35 @@ footer {
         }
     }
 }
+#myAlert {
+    position: fixed;
+    opacity: 0;
+    display: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    top: 30%;
+    width: 40%;
+    height: 40%;
+    margin-left: 30%;
+    padding: 6rem 2rem 2rem;
+    background-color: #333;
+    border-radius: 1rem;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 3rem;
+    letter-spacing: 0.2rem;
+    z-index: 25;
+    color: #FFF;
+    cursor: pointer;
+    transition: all 1s;
+}
 //animate;
  .view-frame.ng-enter {
     -webkit-animation: 0.4s fade-in;
-    -moz-animation: 0.4s fade-in;
-    -o-animation: 0.4s fade-in;
     animation: 0.4s fade-in;
 }
 .view-frame.ng-leave {
     -webkit-animation: 0.4s fade-out;
-    -moz-animation: 0.4s fade-out;
-    -o-animation: 0.4s fade-out;
     animation: 0.4s fade-out;
 }
 @keyframes fade-in {

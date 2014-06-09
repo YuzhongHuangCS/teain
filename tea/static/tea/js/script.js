@@ -51,6 +51,32 @@ teaApp.run(function($rootScope) {
         var total = document.querySelectorAll('.entry');
         angular.element(total).removeClass('selected');
     });
+    //addPrefix function
+    window.addPrefix = function addPrefix(data) {
+        for (var i = data.length - 1; i >= 0; i--) {
+            data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
+        };
+        return data;
+    }
+    //myAlert function
+    window.myAlert = function myAlert(text) {
+        var target;
+
+        target = document.querySelector('#myAlert');
+        angular.element(target).html(text);
+        
+        angular.element(target).css('display', 'block');
+        setTimeout(function(){
+            angular.element(target).css('opacity', '0.9');
+        }, 50);
+
+        target.addEventListener('click', function() {
+            angular.element(target).css('opacity', '0');
+            setTimeout(function() {
+                angular.element(target).css('display', 'none');
+            }, 800);
+        })
+    }
 });
 
 /* Controllers */
@@ -61,10 +87,7 @@ teaControllers.controller('indexController', ['$scope', '$http',
     function($scope, $http) {
         var path = baseurl + '/api/get_cloth_list/1/6/';
         $http.get(path).success(function(data) {
-            for (var i = data.length - 1; i >= 0; i--) {
-                data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
-            };
-            $scope.clothes = data;
+            $scope.clothes = addPrefix(data);
         });
     }
 ]);
@@ -73,10 +96,9 @@ teaControllers.controller('detailController', ['$scope', '$routeParams', '$http'
     function($scope, $routeParams, $http) {
         //init functions
         var path = baseurl + '/api/get_cloth/' + $routeParams.itemID + '/';
-        console.log(path);
+        //console.log(path);
         $http.get(path).success(function(data) {
-            data[0].fields.img_src = baseurl + '/media/' + data[0].fields.img_src;
-            $scope.cloth = data[0];
+            $scope.cloth = addPrefix(data)[0];
         });
 
         var path = baseurl + '/api/get_cloth_sizes/' + $routeParams.itemID + '/';
@@ -86,11 +108,7 @@ teaControllers.controller('detailController', ['$scope', '$routeParams', '$http'
 
         var path = baseurl + '/api/get_cloth_imgs/' + $routeParams.itemID + '/';
         $http.get(path).success(function(data) {
-            for (var i = data.length - 1; i >= 0; i--) {
-                data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
-            };
-            $scope.imgs = data;
-            window.imgs = data;
+            $scope.imgs = addPrefix(data);
             angular.element(document).ready(function() {
                 var clickEvent = document.createEvent("MouseEvents");
                 clickEvent.initEvent("click", true, true);
@@ -100,10 +118,7 @@ teaControllers.controller('detailController', ['$scope', '$routeParams', '$http'
 
         var path = baseurl + '/api/get_cloth_descs/' + $routeParams.itemID + '/';
         $http.get(path).success(function(data) {
-            for (var i = data.length - 1; i >= 0; i--) {
-                data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
-            };
-            $scope.descs = data;
+            $scope.descs = addPrefix(data);
         });
 
         //interact functions
@@ -112,9 +127,9 @@ teaControllers.controller('detailController', ['$scope', '$routeParams', '$http'
             angular.element(imgNodes).removeClass('selected');
             angular.element($event.target).addClass('selected');
             //$event.target.className = 'selected';
-            for (var i = window.imgs.length - 1; i >= 0; i--) {
-                if (window.imgs[i].pk === img.pk) {
-                    $scope.cloth.fields.img_src = window.imgs[i].fields.img_src;
+            for (var i = $scope.imgs.length - 1; i >= 0; i--) {
+                if ($scope.imgs[i].pk === img.pk) {
+                    $scope.cloth.fields.img_src = $scope.imgs[i].fields.img_src;
                     break;
                 }
             };
@@ -133,11 +148,50 @@ teaControllers.controller('loginController', ['$scope', '$http', '$cookies', '$t
         var current = document.querySelector('#login');
         angular.element(current).addClass('selected');
 
+        //get csrf
         var path = baseurl + '/accounts/register/';
-        console.log(path);
-        $http.get(path).success(function(data) {
+        $http.get(path);
 
-        });
+        $scope.checkMust = function checkMust($event) {
+            //console.log($event.target);
+            var target = angular.element($event.target);
+            if (!target.val()) {
+                target.removeClass('valid');
+                target.addClass('invalid');
+            } else {
+                target.removeClass('invalid');
+                target.addClass('valid');
+            }
+        }
+
+
+        $scope.register = function register() {
+            $scope.info.csrfmiddlewaretoken = $cookies.csrftoken;
+
+            var config = {
+                method: 'POST',
+                url: path,
+                data: $scope.info,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                transformRequest: function(obj) {
+                    var str = [];
+                    for (var p in obj) {
+                        str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+                    }
+                    return str.join('&');
+                }
+            }
+
+            $http(config).success(function(data) {
+                if(data == 'ok'){
+                    myAlert('注册成功');
+                }else{
+                    myAlert('注册失败');
+                }
+            });
+        }
     }
 ]);
 
@@ -155,10 +209,7 @@ teaControllers.controller('flowController', ['$scope', '$http',
         var path = baseurl + '/api/get_cloth_list/1/100/';
 
         $http.get(path).success(function(data) {
-            for (var i = data.length - 1; i >= 0; i--) {
-                data[i].fields.img_src = baseurl + '/media/' + data[i].fields.img_src;
-            };
-            $scope.clothes = data;
+            $scope.clothes = addPrefix(data);
         });
 
         var pageID = 1;
