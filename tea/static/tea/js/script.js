@@ -44,6 +44,10 @@ teaApp.config(['$routeProvider',
             templateUrl: '/static/tea/partials/tea-ucenter.html',
             controller: 'ucenterController'
         }).
+        when('/weibo', {
+            templateUrl: '/static/tea/partials/tea-weibo.html',
+            controller: 'weiboController'
+        }).
         otherwise({
             redirectTo: '/'
         });
@@ -473,9 +477,37 @@ teaControllers.controller('ucenterController', ['$scope', '$http',
         angular.element(current).addClass('selected');
 
         var path = '/api/get_user_orders/';
-        
+
         $http.get(path).success(function(data) {
             $scope.orders = data;
+        });
+    }
+]);
+
+teaControllers.controller('weiboController', ['$scope', '$http',
+    function($scope, $http) {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = false;
+        s.src = 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2037499622';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+
+        angular.element(document).ready(function() {
+            WB2.anyWhere(function(W) {
+                W.widget.connectButton({
+                    id: "wb_connect_btn",
+                    type: '3,2',
+                    callback: {
+                        login: function(o) {
+                            alert(o.screen_name)
+                        },
+                        logout: function() {
+                            alert('logout');
+                        }
+                    }
+                });
+            });
         });
     }
 ]);
