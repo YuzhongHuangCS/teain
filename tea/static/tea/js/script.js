@@ -501,6 +501,7 @@ teaControllers.controller('weiboController', ['$scope', '$http',
                     callback: {
                         login: function(o) {
                             alert(o.screen_name)
+                            console.log(o);
                         },
                         logout: function() {
                             alert('logout');
