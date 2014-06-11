@@ -13,3 +13,15 @@ class OrderForm(forms.Form):
     cloth_id = forms.IntegerField(required=True)
     num = forms.IntegerField(required=True)
 
+
+class ClothUploadForm(forms.Form):
+
+    title = forms.CharField(max_length=50, required=True)
+    content = forms.CharField(max_length=500, required=True)
+
+    price = forms.DecimalField(max_digits=10, decimal_places=2, required=True)
+    color = forms.IntegerField(required=True)
+
+    front_img = forms.ImageField()
+    back_img = forms.ImageField()
+

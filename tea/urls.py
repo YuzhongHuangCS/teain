@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import DetailView, ListView
 
 from tea.models import Cloth
-from tea import views
+from tea import views, views_design
 
 urlpatterns = patterns('',
 
@@ -15,9 +15,9 @@ urlpatterns = patterns('',
     url(r'^api/get_cloth_descs/(\d+)/$', views.get_cloth_desc, name='cloth_descs'),
     url(r'^api/get_cloth_sizes/(\d+)/$', views.get_cloth_sizes, name='cloth_sizes'),
 
-    # user log
-    # url(r'^accounts/register/$', views.register),
+    url(r'api/get_design_list/$', views_design.get_design_cloth),
 
+    # user log
     url(r'^accounts/register/$', views.register),
     url(r'^accounts/login/$', views.login_view),
     url(r'^accounts/logout/$', views.logout_view),
@@ -26,6 +26,10 @@ urlpatterns = patterns('',
     # order
     url(r'api/make_order/$', views.make_order),
     url(r'api/get_user_orders/$', views.user_orders),
+
+    # design
+    url(r'^api/cloth_design/$', views_design.design_upload),
+
 
     # user log
     # url(r'^register/$', views.register, name='register'),

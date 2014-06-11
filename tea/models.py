@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Cloth(models.Model):
+
     title = models.CharField(max_length=50)
     keywords = models.CharField(max_length=100)
     summary = models.CharField(max_length=200)
@@ -14,10 +15,41 @@ class Cloth(models.Model):
 
     need = models.IntegerField(default=0)
     get = models.IntegerField(default=0)
+    got = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    end_date = models.DateField()
+    end_date = models.DateField(null=True)
+    color = models.IntegerField(default=0)
 
     img_src = models.ImageField(upload_to='./tea/clothes_imgs')
+    back_img = models.ImageField(upload_to='./tea/clothes_imgs')
+
+    online = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.title
+
+
+class Design_cloth(models.Model):
+
+    cloth = models.ForeignKey(Cloth)
+    user  = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return self.cloth.title + ' -- ' + self.cloth.author
+
+
+class ClothUpload(models.Model):
+
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    color = models.IntegerField(default=0)
+
+    front_img = models.ImageField(upload_to='./tea/clothes_imgs')
+    back_img  = models.ImageField(upload_to='./tea/clothes_imgs')
+
+    user = models.ForeignKey(User)
 
     def __unicode__(self):
         return self.title
@@ -64,4 +96,5 @@ class Order(models.Model):
 
     def __unicode__(self):
         return self.user.username + ' -- ' + self.cloth.title
+
 
