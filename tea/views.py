@@ -6,8 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 
-from tea.models import Cloth, ClothImg, ClothSize, ClothDesc, Order
-from tea.forms import RegisterForm, OrderForm
+from tea.models import Cloth, ClothImg, ClothSize, ClothDesc, Order, ClothUpload
+from tea.forms import RegisterForm, OrderForm, ClothUploadForm
 
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -33,7 +33,7 @@ def get_cloth_list(request, start_id, limit):
     start_id = int(start_id) - 1
     limit = int(limit)
 
-    cloth_list = Cloth.objects.all()[start_id:start_id+limit]
+    cloth_list = Cloth.objects.filter(online=True)[start_id:start_id+limit]
     data = serializers.serialize('json', cloth_list)
     return HttpResponse(data)
 
@@ -65,8 +65,6 @@ def get_cloth_sizes(request, cloth_id):
     cloth_sizes = ClothSize.objects.filter(cloth=cloth_id)
     data = serializers.serialize('json', cloth_sizes)
     return HttpResponse(data)
-
-
 
 
 # user
@@ -123,6 +121,7 @@ def register(request):
 
 
 # ----------------------------------------
+@login_required
 def make_order(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -200,9 +199,26 @@ def cloth_imgs_show(request, cloth_id):
 
 
 
-
-
-
+# @login_required
+# def cloth_upload(request):
+#
+#     if request.method == 'POST':
+#         form = ClothUploadForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form_data = form.cleaned_data
+#             cloth_design = ClothUpload(title=form_data['title'], content=form_data['content'],
+#                                        price=form_data['price'], color=form_data['color'],
+#                                        front_img=form_data['front_img'], back_img=form_data['back_img'],
+#                                        user=request.user)
+#             cloth_design.save()
+#             return HttpResponse(cloth_design.id)
+#         return HttpResponse('None')
+#     else:
+#         form = ClothUploadForm()
+#         form_dict = {
+#             'form': form,
+#         }
+#         return render(request, 'tea/design_cloth_form.html', form_dict)
 
 
 
