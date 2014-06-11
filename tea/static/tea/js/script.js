@@ -486,14 +486,9 @@ teaControllers.controller('ucenterController', ['$scope', '$http',
 
 teaControllers.controller('weiboController', ['$scope', '$http',
     function($scope, $http) {
-        var s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.async = false;
-        s.src = 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2037499622';
-        var x = document.getElementsByTagName('script')[0];
-        x.parentNode.insertBefore(s, x);
-
-        angular.element(document).ready(function() {
+        var wbjs = document.createElement('script');
+        wbjs.src = 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2037499622';
+        wbjs.onload = function(){
             WB2.anyWhere(function(W) {
                 W.widget.connectButton({
                     id: "wb_connect_btn",
@@ -509,6 +504,8 @@ teaControllers.controller('weiboController', ['$scope', '$http',
                     }
                 });
             });
-        });
+        }
+        var scriptNode = document.querySelector('script');
+        scriptNode.parentNode.appendChild(wbjs);
     }
 ]);
