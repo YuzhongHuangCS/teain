@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Tea-in{% endblock %}</title>
+<!--     <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'tea/css/bootstrap.min.css' %}">
+
+</head>
+<body>
+{% block content %}{% endblock %}
+
+
+{% block script %}{% endblock %}
+<script src="{% static 'tea/js/jquery-1.10.2.js' %}"></script>
+<script src="{% static 'tea/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

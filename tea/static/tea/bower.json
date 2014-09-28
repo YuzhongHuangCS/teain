@@ -1,0 +1,15 @@
+{
+  "name": "tea-in",
+  "description": "A website to sale custom t-shirts",
+  "version": "0.0.0",
+  "homepage": "http://www.tea-in.net",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.2.x",
+    "angular-route": "~1.2.15",
+    "angular-animate": "x",
+    "angular-cookies": "x",
+    "normalize-css": "x"
+  }
+}

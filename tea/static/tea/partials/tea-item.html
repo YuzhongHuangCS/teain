@@ -1,0 +1,40 @@
+<div id="item" ng-model="cloth">
+    <div id="info">
+        <div class="imgWrapper">
+            <img ng-src={{cloth.fields.img_src}}>
+        </div>
+        <div class="desc">
+            <p class="id">编号: {{cloth.pk}}</p>
+            <p class="title">名字: {{cloth.fields.title}}</p>
+            <p class="author">作者: {{cloth.fields.author}}</p>
+            <p class="summmary">简介: {{cloth.fields.summary}}</p>
+            <div class="imgs">系列:
+                <ul>
+                    <li ng-repeat="img in imgs">
+                        <img ng-click="changeImg(img, $event)" ng-src={{img.fields.img_src}} />
+                    </li>
+                </ul>
+            </div>
+            <div class="sizes">尺寸:
+                <ul>
+                    <li ng-repeat="size in sizes" ng-click="changeSize(size, $event)">{{size.fields.size}}</li>
+                </ul>
+            </div>
+            <p class="content">详细介绍:
+                <br/>{{cloth.fields.content}}</p>
+            <p>结束时间: {{cloth.fields.end_date}}</p>
+            <p class="progressText">众筹进度
+                <span class="textNum">已筹集{{cloth.fields.get}}/目标{{cloth.fields.need}}</span>
+            </p>
+            <progress id="progressBar" value={{cloth.fields.get}} max={{cloth.fields.need}}></progress>
+            <p id="buy">
+                购买数量
+                <input type="number" min="1" id="num" ng-model="num"/>
+                <span id="buyButton" ng-click="buy(cloth.pk, num)">立即购买</span>
+            </p>
+        </div>
+    </div>
+    <div id="desc-imgs">
+        <img class="desc-imgs-wrapper" ng-repeat="desc in descs" ng-src={{desc.fields.img_src}} />
+    </div>
+</div>

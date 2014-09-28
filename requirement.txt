@@ -1,0 +1,198 @@
+tea-in项目接口设计
+
+JOSN数据需要decode，返回均为unicode字符串
+
+1.获取单件衣服信息
+url: /api/get_cloth/{id}/
+json:
+[{
+    pk # primary key(id)
+    fields = {
+        title    # 标题
+        author   # 作者
+        keywords # 关键词
+        summary  # 概要
+        type     # 类型
+        content  # 内容
+        price    # 价格
+        need     # 所需众筹数
+        get      # 获得众筹数
+        end_date # 众筹结束日期 2014-05-31
+        img_src  # 主图路径
+    }
+}]
+
+/api/get_cloth/1/
+
+[{"pk": 1, "model": "tea.cloth", "fields": {"get": 50, "title": "\u7b2c\u4e00\u4ef6\u8863\u670d", "summary": "\u770b\u8d77\u6765\u8fd8\u4e0d\u9519", "content": "\u8fd9\u4e2a\u4e1c\u897f\u5c31\u968f\u4fbf\u6253\u4e86\r\n\u8fd9\u4e2a\u4e1c\u897f\u5c31\u968f\u4fbf\u6253\u4e86\r\n\u8fd9\u4e2a\u4e1c\u897f\u5c31\u968f\u4fbf\u6253\u4e86\r\n\u8fd9\u4e2a\u4e1c\u897f\u5c31\u968f\u4fbf\u6253\u4e86\r\n\u8fd9\u4e2a\u4e1c\u897f\u5c31\u968f\u4fbf\u6253\u4e86\r\n\u8fd9\u4e2a\u4e1c\u897f\u5c31\u968f\u4fbf\u6253\u4e86\r\n\u8fd9\u4e2a\u4e1c\u897f\u5c31\u968f\u4fbf\u6253\u4e86\r\n\u8fd9\u4e2a\u4e1c\u897f\u5c31\u968f\u4fbf\u6253\u4e86\r\n", "img_src": "000001/001.jpg", "need": 100}}]
+
+
+2.获取多件衣服信息
+url: /api/get_cloth_list/{start}/{limit}/
+json:
+[{
+    pk # primary key(id)
+    fields = {
+        title    # 标题
+        author   # 作者
+        keywords # 关键词
+        summary  # 概要
+        type     # 类型
+        content  # 内容
+        price    # 价格
+        need     # 所需众筹数
+        get      # 获得众筹数
+        end_date # 众筹结束日期 2014-05-31
+        img_src  # 主图路径
+    }
+}, 
+...]
+
+/api/get_cloth_list/1/2
+
+[{"pk": 1, "model": "tea.cloth", "fields": {"get": 10, "price": "44.33", "author": "\u549a\u549a\u549a", "summary": "\u53ea\u662f\u7b2c\u4e00\u4ef6", "content": "\u968f\u4fbf\u6765\u70b9\u5185\u5bb9\r\n\u968f\u4fbf\u6765\u70b9\u5185\u5bb9\r\n\u968f\u4fbf\u6765\u70b9\u5185\u5bb9\r\n\u968f\u4fbf\u6765\u70b9\u5185\u5bb9", "img_src": "001/001.jpg", "need": 20, "title": "\u7b2c\u4e00\u4ef6\u8863\u670d"}}, 
+{"pk": 2, "model": "tea.cloth", "fields": {"get": 5, "price": "22.22", "author": "\u8c01\u77e5\u9053", "summary": "\u7b2c\u4e8c\u4ef6\u5c31\u7b2c\u4e8c\u4ef6", "content": "\u4e0d\u77e5\u9053\u4e0d\u77e5\u9053\r\n\u4e0d\u77e5\u9053\u4e0d\u77e5\u9053\r\n\u4e0d\u77e5\u9053\u4e0d\u77e5\u9053\r\n\u4e0d\u77e5\u9053\u4e0d\u77e5\u9053", "img_src": "002/001.jpg", "need": 10, "title": "\u7b2c\u4e8c\u4ef6T\u6064"}}]
+
+
+3.获取单件衣服的图片集
+url: /api/get_cloth_imgs/{cloth_id}/
+json:
+[{
+    pk # primary key(id)
+    fields = {
+        cloth   # cloth_id
+        img_src # 图片路径
+    }
+},
+...]
+
+/api/get_cloth_imgs/1/
+
+[{"pk": 6, "model": "tea.clothimg", "fields": {"cloth": 1, "img_src": "001/002.jpg"}}, 
+{"pk": 7, "model": "tea.clothimg", "fields": {"cloth": 1, "img_src": "001/003.jpg"}}]
+
+
+4.获取单件衣服的尺寸集
+url: /api/get_cloth_sizes/{cloth_id}/
+json:
+[{
+    pk  # primary key(id)
+    fields = {
+        cloth   # cloth_id
+        size    # 尺寸 L XL XXL XXXL ...
+    }
+},
+...]
+
+/api/get_cloth_sizes/1/
+
+[{"pk": 1, "model": "tea.clothsize", "fields": {"cloth": 1, "size": "L"}}, 
+{"pk": 2, "model": "tea.clothsize", "fields": {"cloth": 1, "size": "XL"}}, 
+{"pk": 3, "model": "tea.clothsize", "fields": {"cloth": 1, "size": "XXL"}}, 
+{"pk": 4, "model": "tea.clothsize", "fields": {"cloth": 1, "size": "XXXL"}}]
+
+
+5.获取单件衣服的描述图集
+url: /api/get_cloth_descs/{cloth_id}/
+json:
+[{
+    pk # primary key(id)
+    fields = {
+        cloth   # cloth_id
+        img_src # 图片路径
+    }
+},
+...]
+
+/api/get_cloth_descs/1/
+
+[{"pk": 1, "model": "tea.clothdesc", "fields": {"cloth": 1, "img_src": "tea/clothes_descs/9.jpg"}}, 
+{"pk": 2, "model": "tea.clothdesc", "fields": {"cloth": 1, "img_src": "tea/clothes_descs/10.jpg"}}]
+
+
+用户模块
+1.用户注册
+url: /accounts/register/ 
+POST:
+    username
+    password
+    repassword  # 自己检测好了
+    email
+return:
+    'ok'        # 成功
+    'None'      # 失败
+
+
+2.用户登录
+url: /accounts/login/
+POST:
+    username
+    password
+return:
+    'ok'        # 成功
+    'None'      # 失败
+
+3.用户注销
+url: /accounts/logout/
+return:
+    'ok'        # 注销成功
+
+
+4.用户信息
+url: /accounts/userinfo/
+
+return:
+    'None'  # 未登录
+json:
+[{
+    pk  #primary key
+    fields = {
+        username
+        firstname
+        lastname
+        last_login  # 上次登录时间 2014-05-22T12:19:11Z
+        email
+        date_joined # 加入时间
+    }
+}]
+
+/accounts/userinfo/
+
+[{"pk": 3, "model": "auth.user", "fields": {"username": "hello", "first_name": "", "last_name": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2014-05-22T12:19:11Z", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$12000$BiJhk1PT6FYr$zeJxnBzX5iWk/7ZuSpQNvrR4t+kCpEvvXORoogTqu/I=", "email": "", "date_joined": "2014-05-22T02:17:35Z"}}]
+
+
+订单模块：
+1.订单信息
+url: /api/make_order/
+POST:
+    user_id
+    cloth_id
+    num
+
+return:
+    'ok'    # 订单产生成功
+    'None'  # 失败
+
+
+2.获取某人的订单集
+url: /api/get_user_orders/
+
+return:
+json:
+[{
+    pk # primary key
+    fields = {
+        user        # user id
+        cloth       # cloth id
+        num         # 数量
+        sum_price   # 总价
+        ord_date    # 下单日期 2014-05-25T12:55:47Z
+        status      # 订单状态 未付款，付了款，发货中，收到..
+        payed       # 是否已经付款 true, false
+    }
+},
+...]
+
+api/get_user_orders/
+[{"pk": 2, "model": "tea.order", "fields": {"ord_date": "2014-05-25T12:55:47Z", "status": "\u672a\u4ed8\u6b3e", "payed": false, "cloth": 1, "num": 5, "user": 3, "sum_price": "100.00"}}, {"pk": 3, "model": "tea.order", "fields": {"ord_date": "2014-05-25T12:55:59Z", "status": "\u672a\u4ed8\u6b3e", "payed": false, "cloth": 2, "num": 3, "user": 3, "sum_price": "75.00"}}]
+

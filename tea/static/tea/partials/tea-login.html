@@ -1,0 +1,10 @@
+<div id="login">
+    <img src="/static/tea/img/logo.png">
+    <form ng-model="info">
+        <p>用户名</p>
+        <input type="text" ng-blur="checkMust($event)" ng-model="info.username">
+        <p>密码</p>
+        <input type="password" ng-blur="checkMust($event)" ng-model="info.password">
+        <input type="submit" id="submit" value="登录" ng-click="login()">
+    </form>
+</div>
